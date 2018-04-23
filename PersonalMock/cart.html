@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>カート</title>
+
+<link rel="stylesheet" href="css/origin/common.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+	rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+	integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+	integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="content">
+		<!-- メニュー -->
+		<span class="sticky-top shadow-sm d-block p-2 bg-dark text-white">
+			<div class="container">
+				<div style="margin-left: 6%; margin-right: 6%">
+					<div class="d-flex">
+						<a
+							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/Top.html"
+							style="text-decoration: none; margin-right: 10px"
+							class="text-white"><div class="p-2">ロゴ</div></a>
+						<div class="p-2">
+							<form class="form-inline">
+								<div class="row">
+									<input type="email" class="form-control form-control-sm"
+										id="colFormLabelSm" placeholder="検索フォーム"> <a
+										href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><button
+											type="button" class="btn btn-outline-secondary btn-sm">検索</button></a>
+								</div>
+							</form>
+
+						</div>
+						<div class="ml-auto dropdown">
+							<a class="nav-link dropdown-toggle text-white" href="#"
+								id="navbarDropdown" role="button" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> 名前 様 </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item"
+									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/userInfo.html">登録情報</a>
+								<a class="dropdown-item"
+									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/userBuyHistory.html">注文履歴</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">ログアウト</a>
+							</div>
+						</div>
+						<a
+							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/login.html"
+							style="text-decoration: none; margin-right: 10px"
+							class="text-white"><div class="p-2">ログイン</div></a>
+						<div class="p-2">
+							<a
+								href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/cart.html"
+								style="text-decoration: none; margin-right: 10px"><i
+								class="fas fa-shopping-cart fa-lg text-white"></i></a>
+						</div>
+						<!-- ドロップダウンリスト -->
+						<div class="dropdown">
+							<a class="nav-link dropdown-toggle text-white" href="#"
+								id="navbarDropdown" role="button" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"><i
+								class="fas fa-align-justify fa-lg"></i></a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item"
+									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/masterItemList.html">商品一覧</a>
+								<a class="dropdown-item"
+									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/masterNewItem.html">商品新規登録</a>
+							</div>
+						</div>
+						<!-- ドロップダウンリスト -->
+					</div>
+				</div>
+			</div>
+		</span>
+		<!-- メニュー -->
+
+		<div class="container">
+			<div style="margin-left: 6%; margin-right: 6%">
+				<nav aria-label="breadcrumb" style="padding-top: 10px;">
+					<ol class="breadcrumb bg-white">
+						<li class="breadcrumb-item"><a
+							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/top.html">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page">カート</li>
+					</ol>
+				</nav>
+
+				<div class="row">
+					<div class="col col-8">
+
+						<!-- アイテム -->
+						<hr class="my-4">
+						<div class="row">
+							<div class="col col-3 align-self-center">
+								<a
+									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/item.html">
+									<img
+									src="https://3.bp.blogspot.com/-MGd0Z_T_fn4/VZt5DJ5IAGI/AAAAAAAAuyU/2EClnKUNgmo/s400/fuku_tatamu.png"
+									class="img-fluid" alt="Responsive image">
+								</a>
+							</div>
+							<div class="col col-1"></div>
+							<div class="col col-4 align-self-center">
+								<h5>
+									<a class="text-dark" style="text-decoration: none;"
+										href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/item.html">
+										商品名 </a>
+								</h5>
+							</div>
+							<div class="col col-4 align-self-center" align="right">
+								<h5>&yen;0</h5>
+								<a href="#">
+									<button type="button" class="btn btn-secondary">
+										<i class="far fa-trash-alt fa-lg"></i> 削除
+									</button>
+								</a>
+							</div>
+						</div>
+						<hr class="my-4">
+						<!-- アイテム -->
+						<h5 align="right">商品合計: &yen;0</h5>
+					</div>
+
+					<div class="col col-4">
+						<div class="jumbotron shadow" style="padding: 5% 8%;">
+							<h5 align="right"
+								style="padding-top: 10px; padding-bottom: 10px;">小計 (0点):
+								&yen;0</h5>
+
+							<div class="row justify-content-md-center"
+								style="padding-bottom: 20px;">
+								<div class="col col-lg-10">
+									<a
+										href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/buy.html"
+										class="btn btn-primary btn-block btn-lg" role="button">レジへ進む</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container"></div>
+	</footer>
+</body>
+</html>
