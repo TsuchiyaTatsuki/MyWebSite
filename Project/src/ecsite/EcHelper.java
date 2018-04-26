@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
-import beans.ItemDataBeans;
+import beans.MyItemDataBeans;
 
 public class EcHelper {
 	// 検索結果
@@ -14,7 +14,7 @@ public class EcHelper {
 	// 商品ページ
 	static final String ITEM_PAGE = "/item.jsp";
 	// TOPページ
-	static final String TOP_PAGE = "/index.jsp";
+	static final String TOP_PAGE = "/top.jsp";
 	// エラーページ
 	static final String ERROR_PAGE = "/error.jsp";
 	// 買い物かごページ
@@ -26,7 +26,9 @@ public class EcHelper {
 	// 購入完了
 	static final String BUY_RESULT_PAGE = "/buyresult.jsp";
 	// ユーザー情報
-	static final String USER_DATA_PAGE = "/userdata.jsp";
+	static final String USER_INFO = "/userInfo.jsp";
+	// ユーザー情報更新画面
+	static final String USER_INFO_CHANGE = "/userInfoChange.jsp";
 	// ユーザー情報更新確認
 	static final String USER_DATA_UPDATE_CONFIRM_PAGE = "/userdataupdateconfirm.jsp";
 	// ユーザー情報更新完了
@@ -38,11 +40,11 @@ public class EcHelper {
 	// ログアウト
 	static final String LOGOUT_PAGE = "/logout.jsp";
 	// 新規登録
-	static final String REGIST_PAGE = "/regist.jsp";
+	static final String NEW_USER = "/newUser.jsp";
 	// 新規登録入力内容確認
-	static final String REGIST_CONFIRM_PAGE = "/registconfirm.jsp";
+	static final String NEW_USER_CONFIRM = "/newUserConfirm.jsp";
 	// 新規登録完了
-	static final String REGIST_RESULT_PAGE = "/registresult.jsp";
+	static final String NEW_USER_RESULT = "/newUserResult.jsp";
 
 	public static EcHelper getInstance() {
 		return new EcHelper();
@@ -54,9 +56,9 @@ public class EcHelper {
 	 * @param items
 	 * @return total
 	 */
-	public static int getTotalItemPrice(ArrayList<ItemDataBeans> items) {
+	public static int getTotalItemPrice(ArrayList<MyItemDataBeans> items) {
 		int total = 0;
-		for (ItemDataBeans item : items) {
+		for (MyItemDataBeans item : items) {
 			total += item.getPrice();
 		}
 		return total;
