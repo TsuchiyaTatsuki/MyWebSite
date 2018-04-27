@@ -68,13 +68,13 @@ public class NewUserConfirm extends HttpServlet {
 			String validationMessage = "";
 
 			if(!password.equals(passwordCon)) {
-				validationMessage += "パスワードと確認パスワードが違います";
+				validationMessage += "パスワードと確認パスワードが違います<br>";
 			}
 			if (!EcHelper.isLoginIdValidation(udb.getLoginId())) {
-				validationMessage += "半角英数とハイフン、アンダースコアのみ入力できます";
+				validationMessage += "半角英数とハイフン、アンダースコアのみ入力できます<br>";
 			}
 			if (MyUserDAO.isOverlapLoginId(udb.getLoginId())) {
-				validationMessage += "ほかのユーザーが使用中のログインIDです";
+				validationMessage += "ほかのユーザーが使用中のログインIDです<br>";
 			}
 
 			if (validationMessage.length() == 0) {
@@ -82,7 +82,7 @@ public class NewUserConfirm extends HttpServlet {
 				request.getRequestDispatcher(EcHelper.NEW_USER_CONFIRM).forward(request, response);
 			} else {
 				session.setAttribute("udb", udb);
-				session.setAttribute("validationMessage", validationMessage);
+				request.setAttribute("validationMessage", validationMessage);
 				response.sendRedirect("NewUser");
 			}
 

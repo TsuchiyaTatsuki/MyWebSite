@@ -15,16 +15,16 @@ import beans.MyUserDataBeans;
 import dao.MyUserDAO;
 
 /**
- * Servlet implementation class UserInfoChange
+ * Servlet implementation class UserInfoChangeResult
  */
-@WebServlet("/UserInfoChange")
-public class UserInfoChange extends HttpServlet {
+@WebServlet("/UserInfoChangeResult")
+public class UserInfoChangeResult extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserInfoChange() {
+    public UserInfoChangeResult() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,24 +34,7 @@ public class UserInfoChange extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-
-		HttpSession session = request.getSession();
-
-		try {
-			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
-
-			MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
-
-			request.setAttribute("udb", udb);
-
-			request.getRequestDispatcher(EcHelper.USER_INFO_CHANGE).forward(request, response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.setAttribute("errorMessage", e.toString());
-			response.sendRedirect("Error");
-		}
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -64,12 +47,15 @@ public class UserInfoChange extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
 
 			String name = request.getParameter("name");
 			String date = request.getParameter("birthDate");
 			String address = request.getParameter("address");
 			String loginId = request.getParameter("loginId");
+
 			MyUserDataBeans udb = new MyUserDataBeans();
 
 			Date birthDate = format.parse(date);
@@ -77,24 +63,27 @@ public class UserInfoChange extends HttpServlet {
 			udb.setBirthDate(birthDate);
 			udb.setAddress(address);
 			udb.setLoginId(loginId);
+			udb.setId(lud.getId());
 
-			String validationMessage = "";
+			String confirmed = request.getParameter("confirm_button");
 
-			if (!EcHelper.isLoginIdValidation(udb.getLoginId())) {
-				validationMessage += "半角英数とハイフン、アンダースコアのみ入力できます<br>";
-			}
-			if (MyUserDAO.isOverlapLoginId(udb.getLoginId())) {
-				validationMessage += "ほかのユーザーが使用中のログインIDです<br>";
-			}
-			if (validationMessage.length() == 0) {
-				request.setAttribute("udb", udb);
-				request.getRequestDispatcher(EcHelper.USER_INFO_CHANGE_CONFIRM).forward(request, response);
-			} else {
+			switch (confirmed) {
+			case "0":
 				session.setAttribute("udb", udb);
-				request.setAttribute("validationMessage", validationMessage);
 				response.sendRedirect("UserInfoChange");
-			}
+				break;
 
+			case "1":
+
+				MyUserDAO.getInstance().infoChangeUser(udb);
+				MyUserDataBeans updateudb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
+				String updateMesse = "登録情報の更新が完了しました";
+				request.setAttribute("udb", updateudb);
+				request.setAttribute("updateMesse", updateMesse);
+				request.getRequestDispatcher(EcHelper.USER_INFO).forward(request, response);
+				break;
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

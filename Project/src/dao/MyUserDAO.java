@@ -117,6 +117,57 @@ public class MyUserDAO {
 		}
 	}
 
+	public void infoChangeUser(MyUserDataBeans udb) throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+
+			con = MyDBManager.getConnection();
+			st = con.prepareStatement("update user set name=?, birth_date=?, address=?, login_id=?, update_date=? where id=?");
+
+			String birthDate = new SimpleDateFormat("yyyy-MM-dd").format(udb.getBirthDate());
+
+			st.setString(1, udb.getName());
+			st.setString(2, birthDate);
+			st.setString(3, udb.getAddress());
+			st.setString(4, udb.getLoginId());
+			st.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+			st.setInt(6, udb.getId());
+
+			st.executeUpdate();
+			System.out.println("update user has been completed");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
+	public void passChangeUser(int id, String newPassword) throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = MyDBManager.getConnection();
+			st = con.prepareStatement("update user set password=? where id=?");
+
+			st.setString(1, EcHelper.getSha256(newPassword));
+			st.setInt(2, id);
+
+			st.executeUpdate();
+			System.out.println("update userPass has been completed");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
 	public static boolean isOverlapLoginId(String loginId) throws SQLException {
 		// 重複しているかどうか表す変数
 		boolean isOverlap = false;

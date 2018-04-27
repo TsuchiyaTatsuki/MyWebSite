@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>登録情報更新</title>
+<title>パスワード変更</title>
 <jsp:include page="/baselayout/head.html" />
 </head>
 <body>
@@ -19,47 +19,38 @@
 	</nav>
 	<div style="margin-left: 15%; margin-right: 15%">
 
-		<!-- 情報変更フォーム -->
+		<!-- パスワード変更フォーム -->
 		<div class="jumbotron" style="padding: 5% 8%;">
-			<h4>登録情報更新</h4>
+			<h4>パスワード変更</h4>
 			<c:if test="${validationMessage != null }">
 				<p class="text-danger">${validationMessage}</p>
 			</c:if>
-
 			<hr class="my-4">
-			<form action="UserInfoChange" method="POST">
+			<form action="UserPassChange" method="POST">
 				<div class="form-group row">
-					<label for="staticEmail" class="col-sm-4 col-form-label">名前</label>
+					<label for="inputPassword" class="col-sm-4 col-form-label">新しいパスワード</label>
 					<div class="col-sm-8">
-						<input name="name" type="text" class="form-control"
-							id="staticEmail" value="${udb.name }">
-					</div>
-				</div>
-				<hr class="my-4">
-				<div class="form-group row">
-					<label for="staticEmail" class="col-sm-4 col-form-label">生年月日</label>
-					<div class="col-sm-8">
-						<input name="birthDate" type="date" class="form-control"
-							id="staticEmail" value="${udb.birthDate }">
-					</div>
-				</div>
-				<hr class="my-4">
-				<div class="form-group row">
-					<label for="staticEmail" class="col-sm-4 col-form-label">住所</label>
-					<div class="col-sm-8">
-						<input name="address" type="text" class="form-control"
-							id="staticEmail" value="${udb.address }">
-					</div>
-				</div>
-				<hr class="my-4">
-				<div class="form-group row">
-					<label for="staticEmail" class="col-sm-4 col-form-label">ログインID</label>
-					<div class="col-sm-8">
-						<input name="loginId" type="text" class="form-control"
-							id="staticEmail" value="${udb.loginId }">
+						<input name="newPassword" type="password" class="form-control" id="newPassword"
+							placeholder="新しいパスワード">
 					</div>
 				</div>
 
+				<hr class="my-4">
+				<div class="form-group row">
+					<label for="inputPassword" class="col-sm-4 col-form-label">現在のパスワード</label>
+					<div class="col-sm-8">
+						<input name="password" type="password" class="form-control" id="password"
+							placeholder="現在のパスワード">
+					</div>
+				</div>
+				<hr class="my-4">
+				<div class="form-group row">
+					<label for="inputPassword" class="col-sm-4 col-form-label">現在のパスワード(確認)</label>
+					<div class="col-sm-8">
+						<input name="passwordCon" type="password" class="form-control" id="passwordCon"
+							placeholder="現在のパスワード(確認)">
+					</div>
+				</div>
 				<hr class="my-4">
 				<div class="row justify-content-md-center">
 					<div class="col col-lg-6">
@@ -68,7 +59,7 @@
 				</div>
 			</form>
 		</div>
-		<!-- 情報変更フォーム -->
+		<!-- パスワード変更フォーム -->
 	</div>
 	<jsp:include page="/baselayout/footer.jsp" />
 </body>

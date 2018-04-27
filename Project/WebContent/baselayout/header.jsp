@@ -62,7 +62,7 @@
 								class="fas fa-align-justify fa-lg"></i></a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item"
-									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/masterItemList.html">商品一覧</a>
+									href="MItemList">商品一覧</a>
 								<a class="dropdown-item"
 									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/masterNewItem.html">商品新規登録</a>
 							</div>

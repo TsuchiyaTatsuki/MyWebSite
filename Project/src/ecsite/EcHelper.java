@@ -30,11 +30,17 @@ public class EcHelper {
 	// ユーザー情報更新画面
 	static final String USER_INFO_CHANGE = "/userInfoChange.jsp";
 	// ユーザー情報更新確認
-	static final String USER_DATA_UPDATE_CONFIRM_PAGE = "/userdataupdateconfirm.jsp";
+	static final String USER_INFO_CHANGE_CONFIRM = "/userInfoChangeConfirm.jsp";
 	// ユーザー情報更新完了
-	static final String USER_DATA_UPDATA_RESULT_PAGE = "/userdataupdateresult.jsp";
+	static final String USER_PASS_CHANGE = "/userPassChange.jsp";
 	// ユーザー購入履歴
 	static final String USER_BUY_HISTORY_DETAIL_PAGE = "/userbuyhistorydetail.jsp";
+	// アイテム一覧（管理者）
+	static final String M_ITEM_LIST = "masterItemList.jsp";
+	// アイテム追加（管理者）
+
+	// アイテム情報更新（管理者）
+	static final String M_ITEM_UPDATE = "masterItemUpdate.jsp";
 	// ログイン
 	static final String LOGIN_PAGE = "/login.jsp";
 	// ログアウト

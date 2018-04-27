@@ -21,6 +21,9 @@
 		<!-- 会員登録フォーム -->
 		<div class="jumbotron" style="padding: 5% 8%;">
 			<h4>登録情報確認</h4>
+			<c:if test="${updateMesse != null }">
+				<p class="text-primary">${updateMesse}</p>
+			</c:if>
 			<hr class="my-4">
 			<form>
 				<div class="row">
@@ -52,7 +55,7 @@
 					</div>
 					<div class="col-sm-2 ml-auto align-self-center">
 						<a
-							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/userPassChange.html">
+							href="UserPassChange">
 							<button type="button" class="btn btn-outline-secondary btn-sm">
 								<i class="fas fa-redo-alt"></i> 変更
 							</button>
@@ -64,7 +67,6 @@
 		</div>
 		<!-- 会員登録フォーム -->
 	</div>
-
 
 	<jsp:include page="/baselayout/footer.jsp" />
 </body>

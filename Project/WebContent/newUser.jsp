@@ -23,6 +23,9 @@
 		<!-- 会員登録フォーム -->
 		<div class="jumbotron" style="padding: 5% 8%;">
 			<h4>登録フォーム</h4>
+			<c:if test="${validationMessage != null }">
+				<p class="text-danger">${validationMessage}</p>
+			</c:if>
 			<hr class="my-4">
 			<form action="NewUserConfirm" method="POST">
 				<div class="form-group row">
