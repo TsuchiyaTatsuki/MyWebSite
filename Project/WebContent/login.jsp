@@ -36,7 +36,7 @@
 				</c:if>
 				<form action="MyLoginResult" method="POST">
 					<div class="form-group">
-						<input name="loginId" type="txt" class="form-control" id="userId"
+						<input name="loginId" type="text" class="form-control" id="userId"
 							placeholder="ID" required>
 					</div>
 					<div class="form-group" style="padding-bottom: 5%;">

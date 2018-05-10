@@ -14,16 +14,16 @@ import beans.MyItemDataBeans;
 import dao.MyItemDAO;
 
 /**
- * Servlet implementation class Top
+ * Servlet implementation class GenderSorting
  */
-@WebServlet("/Top")
-public class Top extends HttpServlet {
+@WebServlet("/GenderSorting")
+public class GenderSorting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Top() {
+    public GenderSorting() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,25 +36,29 @@ public class Top extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
-			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(2);
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(4);
-			request.setAttribute("cateList", cateList);
-			request.setAttribute("itemList", itemList);
+			int gender;
+			if(request.getParameter("gender") == null) {
+				gender = 2;
+			} else {
+				gender = Integer.parseInt(request.getParameter("gender"));
+			}
+
+			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
+
+			session.setAttribute("genderId", gender);
+			session.setAttribute("cateList", cateList);
 			String searchWord = (String)session.getAttribute("searchWord");
 			if(searchWord != null) {
 				session.removeAttribute("searchWord");
 			}
-			Object genderId = session.getAttribute("genderId");
-			if(genderId != null) {
-				session.removeAttribute("genderId");
-			}
+			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(4);
+			request.setAttribute("itemList", itemList);
 			request.getRequestDispatcher(EcHelper.TOP_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
-
 	}
 
 	/**
@@ -62,7 +66,7 @@ public class Top extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }

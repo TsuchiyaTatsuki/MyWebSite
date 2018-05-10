@@ -1,6 +1,7 @@
 package ecsite;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,8 +39,10 @@ public class MItemUpdate extends HttpServlet {
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
 			int gender = Integer.parseInt(request.getParameter("gender"));
 			MyItemDataBeans idb = MyItemDAO.getItemByItemID(itemId);
+			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
 
-			request.setAttribute("idb", idb);
+			session.setAttribute("idb", idb);
+			session.setAttribute("cateList", cateList);
 
 			request.getRequestDispatcher(EcHelper.M_ITEM_UPDATE).forward(request, response);
 		} catch (Exception e) {
@@ -59,13 +62,31 @@ public class MItemUpdate extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
-			String name = request.getParameter("name");
-			String gender = request.getParameter("gender");
-			String category = request.getParameter("category");
-			String detail = request.getParameter("detail");
-			String price = request.getParameter("price");
+			MyItemDataBeans idb = (MyItemDataBeans) session.getAttribute("idb");
 
-			System.out.println(name);
+			String name = request.getParameter("name");
+			int gender = Integer.parseInt(request.getParameter("gender"));
+			int category = Integer.parseInt(request.getParameter("category"));
+			String detail = request.getParameter("detail");
+			int price = Integer.parseInt(request.getParameter("price"));
+			String fileName = request.getParameter("fileName");
+
+			MyItemDataBeans updateidb = new MyItemDataBeans();
+			updateidb.setId(idb.getId());
+			updateidb.setName(name);
+			updateidb.setGender(gender);
+			updateidb.setCategoryId(category);
+			updateidb.setDetail(detail);
+			updateidb.setPrice(price);
+			updateidb.setFileName(fileName);
+
+			MyItemDAO.getInstance().itemUpdate(updateidb);
+			String updateMesse = "アイテムID: " + idb.getId() + " の更新が完了しました";
+
+			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getAllItem();
+			request.setAttribute("itemList", itemList);
+			request.setAttribute("updateMesse", updateMesse);
+			request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();

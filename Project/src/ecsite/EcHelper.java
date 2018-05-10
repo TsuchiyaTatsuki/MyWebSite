@@ -38,7 +38,9 @@ public class EcHelper {
 	// アイテム一覧（管理者）
 	static final String M_ITEM_LIST = "masterItemList.jsp";
 	// アイテム追加（管理者）
-
+	static final String M_NEW_ITEM = "masterNewItem.jsp";
+	// アイテム削除（管理者）
+	static final String M_ITEM_DELETE = "masterItemDelete.jsp";
 	// アイテム情報更新（管理者）
 	static final String M_ITEM_UPDATE = "masterItemUpdate.jsp";
 	// ログイン

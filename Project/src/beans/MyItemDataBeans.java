@@ -8,6 +8,7 @@ public class MyItemDataBeans implements Serializable {
 	private String name;
 	private int gender;
 	private String category;
+	private int categoryId;
 	private String detail;
 	private int price;
 	private String fileName;
@@ -76,6 +77,14 @@ public class MyItemDataBeans implements Serializable {
 	public String getGenderName() {
 		String genderName = gender == 0 ? "メンズ": "レディース";
 		return genderName;
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 }

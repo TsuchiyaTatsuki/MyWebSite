@@ -48,7 +48,7 @@
 					</c:choose>
 					<div class="p-2">
 						<a
-							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/cart.html"
+							href="Cart"
 							style="text-decoration: none; margin-right: 10px"><i
 							class="fas fa-shopping-cart fa-lg text-white"></i></a>
 					</div>
@@ -64,7 +64,7 @@
 								<a class="dropdown-item"
 									href="MItemList">商品一覧</a>
 								<a class="dropdown-item"
-									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/masterNewItem.html">商品新規登録</a>
+									href="MNewItem">商品新規登録</a>
 							</div>
 						</div>
 					</c:if>

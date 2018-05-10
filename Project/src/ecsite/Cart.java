@@ -1,6 +1,7 @@
 package ecsite;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -14,16 +15,16 @@ import beans.MyItemDataBeans;
 import dao.MyItemDAO;
 
 /**
- * Servlet implementation class Top
+ * Servlet implementation class Cart
  */
-@WebServlet("/Top")
-public class Top extends HttpServlet {
+@WebServlet("/Cart")
+public class Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Top() {
+    public Cart() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,19 +37,13 @@ public class Top extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
-			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(2);
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(4);
-			request.setAttribute("cateList", cateList);
-			request.setAttribute("itemList", itemList);
-			String searchWord = (String)session.getAttribute("searchWord");
-			if(searchWord != null) {
-				session.removeAttribute("searchWord");
+			ArrayList<MyItemDataBeans> cart = (ArrayList<MyItemDataBeans>) session.getAttribute("cart");
+			if (cart == null) {
+				cart = new ArrayList<MyItemDataBeans>();
+				session.setAttribute("cart", cart);
 			}
-			Object genderId = session.getAttribute("genderId");
-			if(genderId != null) {
-				session.removeAttribute("genderId");
-			}
-			request.getRequestDispatcher(EcHelper.TOP_PAGE).forward(request, response);
+			request.getRequestDispatcher(EcHelper.CART_PAGE).forward(request, response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
@@ -62,7 +57,29 @@ public class Top extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		try {
+			ArrayList<MyItemDataBeans> cart = (ArrayList<MyItemDataBeans>) session.getAttribute("cart");
+			if(cart == null) {
+				cart = new ArrayList<MyItemDataBeans>();
+			}
+
+			int itemId = Integer.parseInt(request.getParameter("itemId"));
+			MyItemDataBeans itemdb = MyItemDAO.getItemByItemID(itemId);
+			cart.add(itemdb);
+			NumberFormat nfCur = NumberFormat.getCurrencyInstance();
+			String formatTotalPrice = nfCur.format(EcHelper.getTotalItemPrice(cart));
+
+			session.setAttribute("formatTotalPrice", formatTotalPrice);
+			session.setAttribute("cart", cart);
+			request.getRequestDispatcher(EcHelper.CART_PAGE).forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMessage", e.toString());
+			response.sendRedirect("Error");
+		}
 	}
 
 }

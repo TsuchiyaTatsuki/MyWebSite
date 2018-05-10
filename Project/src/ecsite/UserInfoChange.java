@@ -92,7 +92,7 @@ public class UserInfoChange extends HttpServlet {
 			} else {
 				session.setAttribute("udb", udb);
 				request.setAttribute("validationMessage", validationMessage);
-				response.sendRedirect("UserInfoChange");
+				request.getRequestDispatcher(EcHelper.USER_INFO_CHANGE).forward(request, response);
 			}
 
 		} catch (Exception e) {

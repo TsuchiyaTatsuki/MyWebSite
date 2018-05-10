@@ -1,15 +1,6 @@
 package ecsite;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,8 +13,8 @@ import javax.servlet.http.Part;
 /**
  * Servlet implementation class MItemImageUpdate
  */
-@WebServlet(urlPatterns = { "/upload" })
-@MultipartConfig
+@WebServlet("/MItemImageUpdate")
+@MultipartConfig(location = "C:\\Users\\USER\\Documents\\MyWebSite\\Project\\WebContent\\img", maxFileSize = 1048576)
 public class MItemImageUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +32,6 @@ public class MItemImageUpdate extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -50,43 +40,30 @@ public class MItemImageUpdate extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String destination = request.getParameter("destination");
 		Part part = request.getPart("file");
-		String fileName = getFielName(part);
-		Path filePath = Paths.get(destination + File.separator + fileName);
-		// アップしたファイルを取得して、保存
-		InputStream in = part.getInputStream();
-		Files.copy(in, filePath, StandardCopyOption.REPLACE_EXISTING);
-		// 画面遷移先で保存したファイルパスを表示
-		response.setContentType("text/html;charset=UTF-8");
-		try (PrintWriter out = response.getWriter()) {
-			out.println("<!DOCTYPE html>");
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title>Servlet Upload</title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.println("<h1>File upload result</h1>");
-			out.println("<div>");
-			out.println("upload succeed[file path:" + filePath + "]");
-			out.println("<div>");
-			out.println("</body>");
-			out.println("</html>");
+		String name = this.getFileName(part);
+		part.write(name);
+		request.setAttribute("fileName", name);
 
+		String i = request.getParameter("newItem");
+
+		System.out.println(i);
+		if(request.getParameter("newItem") != null){
+			request.getRequestDispatcher(EcHelper.M_NEW_ITEM).forward(request, response);
 		}
-
+		request.getRequestDispatcher(EcHelper.M_ITEM_UPDATE).forward(request, response);
 	}
 
-	private String getFielName(Part part) {
-		String header = part.getHeader("content-disposition");
-		System.out.println("***" + header);
-		String[] split = header.split(";");
-		// headerは、以下の内容になっているので、ここからfilenameである「fileupload.png」を取得
-		// form-data; name="file"; filename="fileupload.png"
-		String fileName = Arrays.asList(split).stream()
-				.filter(s -> s.trim().startsWith("filename"))
-				.collect(Collectors.joining());
-		return fileName.substring(fileName.indexOf("=") + 1).replace("\"", "");
+	private String getFileName(Part part) {
+		String name = null;
+		for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
+			if (dispotion.trim().startsWith("filename")) {
+				name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
+				name = name.substring(name.lastIndexOf("\\") + 1);
+				break;
+			}
+		}
+		return name;
 	}
 
 }

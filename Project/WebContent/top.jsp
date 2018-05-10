@@ -1,138 +1,121 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="beans.MyItemDataBeans"%>
-<%@page import=" java.util.ArrayList"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>トップページ</title>
 <jsp:include page="/baselayout/head.html" />
-<%
-	ArrayList<MyItemDataBeans> itemList = (ArrayList<MyItemDataBeans>) request.getAttribute("itemList");
-%>
 </head>
-
 <body>
 	<jsp:include page="/baselayout/header.jsp" />
-	</div>
-	</div>
-
-	<!-- ナビバー -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<div style="margin-left: 7%; margin-right: 7%">
-				<div class="collapse navbar-collapse" id="navbarText">
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item active" style="padding-right: 20px;"><a
-							class="nav-link" href="#">すべて <span class="sr-only">(現位置)</span></a>
+	<jsp:include page="/baselayout/navber.jsp" />
+	<div class="row">
+		<!-- サイドメニュー -->
+		<div class="col-sm-3">
+			<div class="list-group list-group-flush">
+				<c:choose>
+					<c:when test="${genderId == 2 || genderId == null}">
+						<li class="list-group-item" style="padding-top: 40px;">
+							<h5>
+								<strong>メンズ</strong>
+							</h5>
 						</li>
-						<li class="nav-item" style="padding-right: 20px;"><a
-							class="nav-link" href="#">メンズ</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">レディース</a></li>
-					</ul>
-				</div>
+						<c:forEach var="gcate" items="${cateList }">
+							<c:if test="${gcate.gender == 0 }">
+								<a href="" class="list-group-item list-group-item-action">${gcate.name }</a>
+							</c:if>
+						</c:forEach>
+						<li class="list-group-item" style="padding-top: 40px;">
+							<h5>
+								<strong>レディース</strong>
+							</h5>
+						</li>
+						<c:forEach var="gcate" items="${cateList }">
+							<c:if test="${gcate.gender == 1 }">
+								<a href="" class="list-group-item list-group-item-action">${gcate.name }</a>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+<li class="list-group-item" style="padding-top: 40px;">
+							<h5>
+								<strong>カテゴリ</strong>
+							</h5>
+						</li>
+						<c:forEach var="gcate" items="${cateList }">
+								<a href="" class="list-group-item list-group-item-action">${gcate.name }</a>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
-	</nav>
+		<!-- サイドメニュー -->
 
+		<!-- メインコンテンツ -->
+		<div class="col-md-9" style="padding-top: 25px;">
 
-	<!-- ナビバー -->
-
-	<div class="container">
-		<div style="margin-left: 6%; margin-right: 6%">
-			<div class="row">
-
-				<!-- サイドメニュー -->
-				<div class="col-sm-3">
-					<div class="list-group list-group-flush">
-
-						<li class="list-group-item" style="padding-top: 40px;"><h5>
-								<strong>カテゴリ</strong>
-							</h5></li> <a
-							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"
-							class="list-group-item list-group-item-action">カテゴリ1</a> <a
-							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"
-							class="list-group-item list-group-item-action">カテゴリ2</a> <a
-							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"
-							class="list-group-item list-group-item-action">カテゴリ3</a> <a
-							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"
-							class="list-group-item list-group-item-action">カテゴリ4</a> <a
-							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"
-							class="list-group-item list-group-item-action">カテゴリ5</a>
+			<!-- スライダー -->
+			<div id="carouselExampleFade" class="carousel slide carousel-fade"
+				data-ride="carousel" style="padding-bottom: 20px">
+				<div class="carousel-inner" style="height: 340px;">
+					<div class="carousel-item active">
+						<a
+							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><img
+							class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
+							alt="First slide"></a>
+					</div>
+					<div class="carousel-item">
+						<a
+							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><img
+							class="d-block w-100" src="img/gahag-0006435869-1.jpg"
+							alt="Second slide"></a>
+					</div>
+					<div class="carousel-item">
+						<a
+							href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><img
+							class="d-block w-100" src="img/Kazukihiro18117018.jpg"
+							alt="Third slide"></a>
 					</div>
 				</div>
-				<!-- サイドメニュー -->
-
-				<!-- メインコンテンツ -->
-				<div class="col-md-9" style="padding-top: 25px;">
-
-					<!-- スライダー -->
-					<div id="carouselExampleFade" class="carousel slide carousel-fade"
-						data-ride="carousel" style="padding-bottom: 20px">
-						<div class="carousel-inner" style="height: 340px;">
-							<div class="carousel-item active">
-								<a
-									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><img
-									class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
-									alt="First slide"></a>
-							</div>
-							<div class="carousel-item">
-								<a
-									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><img
-									class="d-block w-100" src="img/gahag-0006435869-1.jpg"
-									alt="Second slide"></a>
-							</div>
-							<div class="carousel-item">
-								<a
-									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><img
-									class="d-block w-100" src="img/Kazukihiro18117018.jpg"
-									alt="Third slide"></a>
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleFade"
-							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-							class="sr-only">Previous</span>
-						</a> <a class="carousel-control-next" href="#carouselExampleFade"
-							role="button" data-slide="next"> <span
-							class="carousel-control-next-icon" aria-hidden="true"></span> <span
-							class="sr-only">Next</span>
-						</a>
-					</div>
-					<!-- スライダー -->
-
-
-					<div class="row" style="padding: 10px;">
-						<!-- 商品カード -->
-						<%
-							for (MyItemDataBeans item : itemList) {
-						%>
-						<div class="col-3">
-							<div class="card" style="width: 10rem; border: none;">
-								<a
-									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/item.html"><img
-									class="card-img-top"
-									src="<%if (item.getFileName() == null) {%>
-										img/fuku_tatamu.png
-										<%} else {%>
-										<%}%>
-									"></a>
-								<div class="card-body">
-									<p class="card-text"><%=item.getName()%><br><%=item.getFormatPrice()%></p>
-								</div>
-							</div>
-						</div>
-						<%
-							}
-						%>
-						<!-- 商品カード -->
-
-					</div>
-				</div>
+				<a class="carousel-control-prev" href="#carouselExampleFade"
+					role="button" data-slide="prev"> <span
+					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+					class="sr-only">Previous</span>
+				</a> <a class="carousel-control-next" href="#carouselExampleFade"
+					role="button" data-slide="next"> <span
+					class="carousel-control-next-icon" aria-hidden="true"></span> <span
+					class="sr-only">Next</span>
+				</a>
 			</div>
-			<!-- メインコンテンツ -->
-
-			<jsp:include page="/baselayout/footer.jsp" />
+			<!-- スライダー -->
+			<div class="row" style="padding: 10px;">
+				<!-- 商品カード -->
+				<c:forEach var="item" items="${itemList}">
+					<div class="col-3">
+						<div class="card" style="width: 10rem; border: none;">
+							<c:choose>
+								<c:when test="${item.fileName != null }">
+									<a href="Item?itemId=${item.id }"><img class="card-img-top"
+										src="img/${item.fileName }" style="height: 10rem;"></a>
+								</c:when>
+								<c:otherwise>
+									<a href="Item?itemId=${item.id }"><img class="card-img-top"
+										src="img/fuku_tatamu.png" style="height: 10rem;"></a>
+								</c:otherwise>
+							</c:choose>
+							<div class="card-body">
+								<p class="card-text">${item.name }<br>${item.formatPrice }</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+				<!-- 商品カード -->
+			</div>
+		</div>
+	</div>
+	<!-- メインコンテンツ -->
+	<jsp:include page="/baselayout/footer.jsp" />
 </body>
 </html>

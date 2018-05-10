@@ -18,9 +18,13 @@
 	</h3>
 	<h5 class="p-4" align="right">
 		<a class="text-dark"
-			href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/masterNewItem.html"
+			href="MNewItem"
 			style="text-decoration: none;">新規登録</a>
 	</h5>
+
+	<c:if test="${updateMesse != null }">
+		<p class="text-primary">${updateMesse }</p>
+	</c:if>
 
 	<table class="table">
 		<thead class="thead-light">
@@ -40,19 +44,19 @@
 					<td style="width: 10%">${item.name }</td>
 					<td style="width: 25%">${item.genderName }</td>
 					<td style="width: 15%">${item.category }</td>
-					<td style="width: 15%">${item.price }</td>
+					<td style="width: 15%">${item.formatPrice }</td>
 					<td style="width: 10%">
-						<form action="MItemUpdate" method="get">
-							<div class="row">
-								<input type="hidden" name="gender" value="${item.gender }">
-								<button type="submit" class="btn btn-outline-secondary btn-sm"
-									name="itemId" value="${item.id }">更新</button>
-								<a href="MItemDelete?id=${item.id }">
-									<button type="button" class="btn btn-outline-danger btn-sm">
-										削除</button>
-								</a>
-							</div>
-						</form>
+						<div class="row">
+							<form action="MItemUpdate" method="get">
+									<input type="hidden" name="gender" value="${item.gender }">
+									<button type="submit" class="btn btn-outline-secondary btn-sm"
+										name="itemId" value="${item.id }">更新</button>
+							</form>
+							<form action="MItemDelete" method="get">
+								<button type="submit" class="btn btn-outline-danger btn-sm"
+									name="itemId" value="${item.id }">削除</button>
+							</form>
+						</div>
 					</td>
 				</tr>
 			</c:forEach>

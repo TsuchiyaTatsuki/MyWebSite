@@ -20,23 +20,32 @@
 		<h5>
 			<strong>商品ID表示</strong>
 		</h5>
-		<form action="MItemImageUpdate" method="POST" enctype="multipart/form-data">
+		<form action="MItemImageUpdate" method="POST"
+			enctype="multipart/form-data">
 			<div class="form-group">
-
 				<div class="row" style="padding-top: 10px;">
 					<div class="col-sm-4">
-						<img src="${idb.fileName }" class="img-thumbnail"
-							style="width: 15rem; height: 15rem;">
+						<c:choose>
+							<c:when test="${fileName != null }">
+								<img src="img/${fileName }" class="img-thumbnail"
+									style="width: 15rem; height: 15rem;">
+							</c:when>
+							<c:otherwise>
+								<img src="img/${idb.fileName }" class="img-thumbnail"
+									style="width: 15rem; height: 15rem;">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="col-sm-8 align-self-end">
 						<div class="input-group mb-3">
 							<div class="custom-file">
 								<input name="file" type="file" class="custom-file-input"
-									id="file" value="/img"> <label class="custom-file-label"
+									id="file"> <label class="custom-file-label"
 									for="inputGroupFile01"></label>
 							</div>
 							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="submit">送信</button>
+								<input class="btn btn-outline-secondary" type="submit"
+									value="送信">
 							</div>
 						</div>
 					</div>
@@ -49,20 +58,25 @@
 					type="text" class="form-control" id="name" value="${idb.name }">
 			</div>
 			<div class="form-group">
-				<label for="exampleFormControlSelect1">性別</label> <select
-					name="gender" class="form-control" id="gender">
-					<option value="0">メンズ</option>
-					<option value="1">レディース</option>
-				</select>
+				<label for="exampleFormControlSelect1">性別</label>
+					<c:choose>
+					<c:when test="${idb.gender == 0 }">
+					<input class="form-control" id="gender" placeholder="メンズ" readonly>
+					<input class="form-control" type="hidden" name="gender" value="0">
+					</c:when>
+					<c:when test="${idb.gender == 1 }">
+					<input class="form-control" id="gender" placeholder="レディース" readonly>
+					<input class="form-control" type="hidden" name="gender" value="1">
+					</c:when>
+					</c:choose>
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlSelect1">カテゴリ</label> <select
 					name="category" class="form-control" id="exampleFormControlSelect1">
-					<option value="1">カテゴリ1</option>
-					<option value="2">カテゴリ2</option>
-					<option value="3">カテゴリ3</option>
-					<option value="4">カテゴリ4</option>
-					<option value="5">カテゴリ5</option>
+					<option value="${idb.categoryId }">${idb.category }</option>
+					<c:forEach var="gcate" items="${cateList}">
+					<option value="${gcate.id }">${gcate.name }</option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group">
@@ -71,9 +85,16 @@
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlInput1">価格</label> <input name="price"
-					type="text" class="form-control" id="price" value="${idb.price }">
+					type="number" class="form-control" id="price" value="${idb.price }">
 			</div>
-
+			<c:choose>
+				<c:when test="${fileName != null }">
+					<input type="hidden" name="fileName" value="${fileName }">
+				</c:when>
+				<c:otherwise>
+					<input type="hidden" name="fileName" value="${idb.fileName }">
+				</c:otherwise>
+			</c:choose>
 			<div align="center">
 				<button type="submit" class="btn btn-primary">更新する</button>
 			</div>
