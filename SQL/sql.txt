@@ -1,0 +1,324 @@
+CREATE DATABASE ecproject DEFAULT CHARACTER SET utf8;
+
+use ecproject;
+
+create table user ( 
+  id serial
+  , login_id varchar (255) unique not null
+  , name varchar (255) not null
+  , birth_date date not null
+  , address varchar (255) not null
+  , password varchar (255) not null
+  , create_date datetime not null
+  , update_date datetime not null
+) ;
+
+create table buy_detail( 
+  id serial
+  , user_id int (11) not null
+  , delivery_method_id int (11) not null
+  , total_price int (11) not null
+  , create_date datetime not null
+) ;
+
+create table buy( 
+  id serial
+  , buy_id int (11) not null
+  , item_id int (11) not null
+) ;
+
+
+create table delivery_method( 
+  id serial
+  , name varchar (255) not null
+  , price int (11) not null
+) ;
+
+
+create table item( 
+  id serial
+  , name varchar (255) not null
+  , gender int (11) not null
+  , category int (11) not null
+  , item_detail varchar (255) not null
+  , price int (11) not null
+  , image varchar (255)
+) ;
+
+create table category( 
+  id serial
+  , category_name varchar (255) not null
+  , gender int (11) not null
+) ;
+
+
+insert 
+into category(category_name, gender) 
+values ('トップス', 0);
+
+
+insert 
+into category(category_name, gender) 
+values ('アウター', 0);
+
+
+insert 
+into category(category_name, gender) 
+values ('アウター', 0);
+
+
+insert 
+into category(category_name, gender) 
+values ('パンツ', 0);
+
+
+insert 
+into category(category_name, gender) 
+values ('スーツ', 0);
+
+
+insert 
+into category(category_name, gender) 
+values ('シューズ', 0);
+
+
+insert 
+into category(category_name, gender) 
+values ('その他', 0);
+
+
+insert 
+into category(category_name, gender) 
+values ('トップス', 1);
+
+
+insert 
+into category(category_name, gender) 
+values ('アウター', 1);
+
+
+insert 
+into category(category_name, gender) 
+values ('パンツ', 1);
+
+insert 
+into category(category_name, gender) 
+values ('スカート', 1);
+
+insert 
+into category(category_name, gender) 
+values ('ワンピース', 1);
+
+insert 
+into category(category_name, gender) 
+values ('シューズ', 1);
+
+insert 
+into category(category_name, gender) 
+values ('その他', 1);
+
+insert 
+into item( 
+  name
+  , gender
+  , category
+  , item_detail
+  , price
+  , image
+) 
+values ( 
+  '半袖 Tシャツ'
+  , 0
+  , 1
+  , '【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル'
+  , 2200
+  , '121353.jpg'
+) ;
+
+insert 
+into user ( 
+  login_id
+  , name
+  , birth_date
+  , address
+  , password
+  , create_date
+  , update_date
+) 
+values ( 
+  'admin'
+  , '管理者'
+  , '1995-05-31'
+  , '神奈川県'
+  , '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'
+  , '2018-04-24 00:00:00'
+  , '2018-04-24 00:00:00'
+) ;
+
+
+insert 
+into delivery_method(name, price) 
+values ('通常配送', 0);
+
+
+insert 
+into delivery_method(name, price) 
+values ('即日配送', 300);
+
+
+insert 
+into delivery_method(name, price) 
+values ('日時指定', 300);
+
+
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (1,'Tシャツ1',0,1,'【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2000,'121353.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (2,'Tシャツ2',0,1,'【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2200,'121353.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (6,'Tシャツ3',0,1,'【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',22000,'fuku_tatamu.png');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (9,'Tシャツ5',0,4,'あああああああああああ',2200,'fuku_tatamu.png');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (11,'Tシャツ6',0,1,'あああああ',24000,'121353.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (12,'Tシャツ',1,8,'【タイプ】<br>メンズ<br>【サイズ】<br>S・M・L<br>【カラー】<br>白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2000,null);
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (13,'Tシャツ',1,8,'【タイプ】<br>メンズ<br>【サイズ】<br>S・M・L<br>【カラー】<br>白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2000,null);
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (14,'Tシャツ',1,8,'【タイプ】<br>メンズ<br>【サイズ】<br>S・M・L<br>【カラー】<br>白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2000,null);
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (15,'Tシャツ',1,8,'【タイプ】<br>メンズ<br>【サイズ】<br>S・M・L<br>【カラー】<br>白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2000,null);
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (16,'Tシャツ',1,8,'【タイプ】<br>メンズ<br>【サイズ】<br>S・M・L<br>【カラー】<br>白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2000,null);
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (17,'Tシャツ',1,8,'【タイプ】<br>メンズ<br>【サイズ】<br>S・M・L<br>【カラー】<br>白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2000,null);
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (18,'tシャツ',0,1,'シンプルなロゴTシャツ
+ご好評いただいている＜BEAMS（ビームス）＞のロゴシリーズです。素材にはコットンを採用しているため、肌触りが良いのもポイント。シンプルながら存在感のある＜BEAMS＞ロゴプリントは、各色ごとにプリントカラーを変えているため、コーディネートのアクセントとして活躍する1品です。',3500,'aa.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (19,'半袖 Tシャツ',0,1,'【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2200,'aa.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (20,'半袖 Tシャツ4',0,1,'【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2200,'aa.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (21,'半袖 Tシャツ3',0,1,'【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',2200,'aa.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (22,'半袖 Tシャツ2',0,1,'【タイプ】
+メンズ
+【サイズ】
+S・M・L
+【カラー】
+白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル',3500,'aa.jpg');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (23,'アウター',0,2,'■大胆な切り替えと絶妙なサイズ感がマッドポップ
+トレンドのスポーツテイストを大胆な切り替えで表現しつつ、シンプルな配色で着回し力は抜群。程よいビッグシルエットかつレトロジャージ感はまさに今が旬。スウェット、パーカー、Tシャツ等あらゆるインナーとのコーデも幅広い。ボトムスもスキニー等でカジュアルにスウェットジョガーパンツ等でスポーティに。ワイドパンツと合わせてもラフな着こなしができる。',4200,'キャプチャ2.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (24,'アウター2',0,2,'■大胆な切り替えと絶妙なサイズ感がマッドポップ
+トレンドのスポーツテイストを大胆な切り替えで表現しつつ、シンプルな配色で着回し力は抜群。程よいビッグシルエットかつレトロジャージ感はまさに今が旬。スウェット、パーカー、Tシャツ等あらゆるインナーとのコーデも幅広い。ボトムスもスキニー等でカジュアルにスウェットジョガーパンツ等でスポーティに。ワイドパンツと合わせてもラフな着こなしができる。',4300,'キャプチャ2.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (25,'アウター3',0,2,'■大胆な切り替えと絶妙なサイズ感がマッドポップ
+トレンドのスポーツテイストを大胆な切り替えで表現しつつ、シンプルな配色で着回し力は抜群。程よいビッグシルエットかつレトロジャージ感はまさに今が旬。スウェット、パーカー、Tシャツ等あらゆるインナーとのコーデも幅広い。ボトムスもスキニー等でカジュアルにスウェットジョガーパンツ等でスポーティに。ワイドパンツと合わせてもラフな着こなしができる。',6400,'キャプチャ2.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (26,'アウター4',0,2,'■大胆な切り替えと絶妙なサイズ感がマッドポップ
+トレンドのスポーツテイストを大胆な切り替えで表現しつつ、シンプルな配色で着回し力は抜群。程よいビッグシルエットかつレトロジャージ感はまさに今が旬。スウェット、パーカー、Tシャツ等あらゆるインナーとのコーデも幅広い。ボトムスもスキニー等でカジュアルにスウェットジョガーパンツ等でスポーティに。ワイドパンツと合わせてもラフな着こなしができる。',6400,'キャプチャ2.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (27,'パンツ',0,3,'ヒットアイテムがニューカラーを加え再登場
+ウエストともも周りにゆとりを持たせ、ひざ下をテーパードさせる事で程よいボリュームに仕上げた＜BEAMS（ビームス）＞オリジナルデニムが春夏に続いて今シーズンも登場。1990年代ストリートシーンを象徴するアイテムのバギーパンツを現代的にアップデートしています。ストリート感のあるアイテムとはもちろん、人気のシルエットとしてカジュアルコーディネートにも取り入れやすいアイテムです。',5600,'キャプチャ.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (28,'パンツ2',0,3,'ヒットアイテムがニューカラーを加え再登場
+ウエストともも周りにゆとりを持たせ、ひざ下をテーパードさせる事で程よいボリュームに仕上げた＜BEAMS（ビームス）＞オリジナルデニムが春夏に続いて今シーズンも登場。1990年代ストリートシーンを象徴するアイテムのバギーパンツを現代的にアップデートしています。ストリート感のあるアイテムとはもちろん、人気のシルエットとしてカジュアルコーディネートにも取り入れやすいアイテムです。',4600,'キャプチャ.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (29,'パンツ3',0,3,'ヒットアイテムがニューカラーを加え再登場
+ウエストともも周りにゆとりを持たせ、ひざ下をテーパードさせる事で程よいボリュームに仕上げた＜BEAMS（ビームス）＞オリジナルデニムが春夏に続いて今シーズンも登場。1990年代ストリートシーンを象徴するアイテムのバギーパンツを現代的にアップデートしています。ストリート感のあるアイテムとはもちろん、人気のシルエットとしてカジュアルコーディネートにも取り入れやすいアイテムです。',14000,'キャプチャ.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (30,'スーツ',0,4,'気軽にセットアップスタイルを楽しんで頂けるアイテムが登場。',14000,'キャプチャ3.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (31,'スーツ3',0,4,'気軽にセットアップスタイルを楽しんで頂けるアイテムが登場。',14000,'キャプチャ3.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (32,'スーツ2',0,4,'気軽にセットアップスタイルを楽しんで頂けるアイテムが登場。',24000,'キャプチャ3.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (33,'スーツ4',0,4,'気軽にセットアップスタイルを楽しんで頂けるアイテムが登場。',22000,'キャプチャ3.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (34,'スーツ5',0,4,'気軽にセットアップスタイルを楽しんで頂けるアイテムが登場。',22000,'キャプチャ3.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (35,'シューズ1',0,5,'1917年に生産されて以来、長きにわたって履かれ続けている「キャンバス オールスター」。
+ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',3500,'キャプチャ4.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (36,'シューズ2',0,5,'1917年に生産されて以来、長きにわたって履かれ続けている「キャンバス オールスター」。
+ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',4500,'キャプチャ4.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (37,'シューズ3',0,5,'1917年に生産されて以来、長きにわたって履かれ続けている「キャンバス オールスター」。
+ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',4700,'キャプチャ4.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (38,'シューズ',0,5,'1917年に生産されて以来、長きにわたって履かれ続けている「キャンバス オールスター」。
+ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',6000,'キャプチャ4.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (39,'シューズ5',0,5,'1917年に生産されて以来、長きにわたって履かれ続けている「キャンバス オールスター」。
+ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',6000,'キャプチャ4.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (40,'シューズ6',0,5,'1917年に生産されて以来、長きにわたって履かれ続けている「キャンバス オールスター」。
+ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',6000,'キャプチャ4.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (41,'サングラス',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1200,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (42,'サングラス1',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1400,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (43,'サングラス2',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1700,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (44,'サングラス3',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',2200,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (45,'サングラス4',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1500,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (46,'バッグ',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',9700,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (47,'バッグ2',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',5800,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (48,'バッグ3',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',7200,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (49,'バッグ4',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',9300,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (50,'トップス',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',2200,'キャプチャ7.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (51,'トップス',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',2300,'キャプチャ7.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (52,'トップス2',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',3500,'キャプチャ7.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (53,'トップス3',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',3200,'キャプチャ7.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (54,'トップス4',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',3100,'キャプチャ7.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (55,'アウター',1,9,'前回発売分が即完売となった、大人気「バッグギャザーショートシャウター」が夏素材になって新登場！',5500,'キャプチャ8.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (56,'アウター2',1,9,'前回発売分が即完売となった、大人気「バッグギャザーショートシャウター」が夏素材になって新登場！',5600,'キャプチャ8.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (57,'アウター2',1,9,'前回発売分が即完売となった、大人気「バッグギャザーショートシャウター」が夏素材になって新登場！',3500,'キャプチャ8.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (58,'アウター3',1,9,'前回発売分が即完売となった、大人気「バッグギャザーショートシャウター」が夏素材になって新登場！',4200,'キャプチャ8.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (59,'アウター4',1,9,'前回発売分が即完売となった、大人気「バッグギャザーショートシャウター」が夏素材になって新登場！',5300,'キャプチャ8.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (60,'パンツ',1,10,'驚異のリピート率を誇る美シルエテーパード',3000,'キャプチャ9.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (61,'パンツ2',1,10,'驚異のリピート率を誇る美シルエテーパード',3600,'キャプチャ9.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (62,'パンツ3',1,10,'驚異のリピート率を誇る美シルエテーパード',2900,'キャプチャ9.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (63,'パンツ4',1,10,'驚異のリピート率を誇る美シルエテーパード',3200,'キャプチャ9.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (64,'スカート',1,11,'プチプラのあやオリジナルブランドアイテム★',3600,'キャプチャ10.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (65,'スカート1',1,11,'プチプラのあやオリジナルブランドアイテム★',3400,'キャプチャ10.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (66,'スカート2',1,11,'プチプラのあやオリジナルブランドアイテム★',3500,'キャプチャ10.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (67,'スカート3',1,11,'プチプラのあやオリジナルブランドアイテム★',4000,'キャプチャ10.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (68,'スカート4',1,11,'プチプラのあやオリジナルブランドアイテム★',4500,'キャプチャ10.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (69,'スカート5',1,11,'プチプラのあやオリジナルブランドアイテム★',4200,'キャプチャ10.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (70,'スカート6',1,11,'プチプラのあやオリジナルブランドアイテム★',4200,'キャプチャ10.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (71,'ワンピース',1,12,'やや長めのチュールスカートもウエスト切替とコンパクトなトップスで全体のバランスの取れたシルエット。
+デコルテ部分の控えめなシースルーが上品なドレスです。',4200,'キャプチャ11.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (72,'ワンピース1',1,12,'やや長めのチュールスカートもウエスト切替とコンパクトなトップスで全体のバランスの取れたシルエット。
+デコルテ部分の控えめなシースルーが上品なドレスです。',9000,'キャプチャ11.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (73,'ワンピース1',1,12,'やや長めのチュールスカートもウエスト切替とコンパクトなトップスで全体のバランスの取れたシルエット。
+デコルテ部分の控えめなシースルーが上品なドレスです。',9000,'キャプチャ11.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (74,'ワンピース2',1,12,'やや長めのチュールスカートもウエスト切替とコンパクトなトップスで全体のバランスの取れたシルエット。
+デコルテ部分の控えめなシースルーが上品なドレスです。',8500,'キャプチャ11.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (75,'ワンピース3',1,12,'やや長めのチュールスカートもウエスト切替とコンパクトなトップスで全体のバランスの取れたシルエット。
+デコルテ部分の控えめなシースルーが上品なドレスです。',7900,'キャプチャ11.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (76,'ワンピース3',1,12,'やや長めのチュールスカートもウエスト切替とコンパクトなトップスで全体のバランスの取れたシルエット。
+デコルテ部分の控えめなシースルーが上品なドレスです。',7900,'キャプチャ11.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (77,'シューズ',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',12000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (78,'シューズ1',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',13000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (79,'シューズ2',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',14000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (80,'シューズ3',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',12000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (81,'シューズ4',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',12000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (82,'シューズ4',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',12000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (83,'シューズ4',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',20000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (84,'シューズ4',1,13,'型から新たにデザインした＜BEAMS（ビームス）＞だけの別注サンダルです。',20000,'キャプチャ12.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (85,'財布',1,14,'ユニセックスの商品を中心に今っぽい様々なライフスタイル雑貨を提案するURBAN RESEARCH WEBオンリーショップ。',20000,'キャプチャ13.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (86,'財布2',1,14,'ユニセックスの商品を中心に今っぽい様々なライフスタイル雑貨を提案するURBAN RESEARCH WEBオンリーショップ。',10000,'キャプチャ13.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (87,'財布2',1,14,'ユニセックスの商品を中心に今っぽい様々なライフスタイル雑貨を提案するURBAN RESEARCH WEBオンリーショップ。',14000,'キャプチャ13.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (88,'財布3',1,14,'ユニセックスの商品を中心に今っぽい様々なライフスタイル雑貨を提案するURBAN RESEARCH WEBオンリーショップ。',14000,'キャプチャ13.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (89,'財布4',1,14,'ユニセックスの商品を中心に今っぽい様々なライフスタイル雑貨を提案するURBAN RESEARCH WEBオンリーショップ。',16000,'キャプチャ13.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (90,'財布5',1,14,'ユニセックスの商品を中心に今っぽい様々なライフスタイル雑貨を提案するURBAN RESEARCH WEBオンリーショップ。',14500,'キャプチャ13.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (91,'リュック',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',5200,'キャプチャ14.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (92,'リュック2',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',4800,'キャプチャ14.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (93,'リュック3',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',5600,'キャプチャ14.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (94,'リュック3',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',5600,'キャプチャ14.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (95,'リュック4',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',6000,'キャプチャ14.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (96,'リュック5',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',5900,'キャプチャ14.PNG');
+

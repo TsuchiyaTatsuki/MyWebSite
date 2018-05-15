@@ -67,25 +67,25 @@
 				<div class="carousel-inner" style="height: 340px;">
 					<div class="carousel-item active">
 						<a
-							href="ItemSearchResult?category=1"><img
+							href="ItemSearchResult?categoryId=1"><img
 							class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
 							alt="First slide"></a>
 					</div>
 					<div class="carousel-item">
 						<a
-							href="ItemSearchResult?category=3"><img
+							href="ItemSearchResult?categoryId=3"><img
 							class="d-block w-100" src="img/gahag-0006435869-1.jpg"
 							alt="Second slide"></a>
 					</div>
 					<div class="carousel-item">
 						<a
-							href="ItemSearchResult?category=8"><img
+							href="ItemSearchResult?categoryId=8"><img
 							class="d-block w-100" src="img/tops.jpg"
 							alt="Third slide"></a>
 					</div>
 					<div class="carousel-item">
 						<a
-							href="ItemSearchResult?category=10"><img
+							href="ItemSearchResult?categoryId=10"><img
 							class="d-block w-100" src="img/pants.jpg"
 							alt="fourth slide"></a>
 					</div>
@@ -107,19 +107,19 @@
 				<div class="carousel-inner" style="height: 340px;">
 					<div class="carousel-item active">
 						<a
-							href="ItemSearchResult?category=1"><img
+							href="ItemSearchResult?categoryId=1"><img
 							class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
 							alt="First slide"></a>
 					</div>
 					<div class="carousel-item">
 						<a
-							href="ItemSearchResult?category=3"><img
+							href="ItemSearchResult?categoryId=3"><img
 							class="d-block w-100" src="img/gahag-0006435869-1.jpg"
 							alt="Second slide"></a>
 					</div>
 					<div class="carousel-item">
 						<a
-							href="ItemSearchResult?category=5"><img
+							href="ItemSearchResult?categoryId=5"><img
 							class="d-block w-100" src="img/shoes.jpg"
 							alt="Third slide"></a>
 					</div>
@@ -141,19 +141,19 @@
 				<div class="carousel-inner" style="height: 340px;">
 					<div class="carousel-item active">
 						<a
-							href="ItemSearchResult?category=8"><img
+							href="ItemSearchResult?categoryId=8"><img
 							class="d-block w-100" src="img/tops.jpg"
 							alt="First slide"></a>
 					</div>
 					<div class="carousel-item">
 						<a
-							href="ItemSearchResult?category=9"><img
+							href="ItemSearchResult?categoryId=9"><img
 							class="d-block w-100" src="img/pants.jpg"
 							alt="Second slide"></a>
 					</div>
 					<div class="carousel-item">
 						<a
-							href="ItemSearchResult?category=12"><img
+							href="ItemSearchResult?categoryId=12"><img
 							class="d-block w-100" src="img/Kazukihiro18117018.jpg"
 							alt="Third slide"></a>
 					</div>
