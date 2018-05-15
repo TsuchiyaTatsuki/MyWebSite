@@ -14,12 +14,12 @@
 											src="img/HdKl5dKX.png"
 											class="img-fluid" alt="Responsive image"></div></a>
 					<div class="p-2">
-						<form class="form-inline">
+						<form class="form-inline" action="ItemSearchResult" method="POST">
 							<div class="row">
-								<input type="email" class="form-control form-control-sm"
-									id="colFormLabelSm" placeholder="検索フォーム"> <a
-									href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/itemSearchResult.html"><button
-										type="button" class="btn btn-outline-secondary btn-sm">検索</button></a>
+								<input type="text" class="form-control form-control-sm"
+									id="searchWord" name="searchWord" placeholder="検索フォーム">
+									<button
+										type="submit" class="btn btn-outline-secondary btn-sm" name="action">検索</button>
 							</div>
 						</form>
 
@@ -35,7 +35,7 @@
 									<a class="dropdown-item"
 										href="UserInfo">登録情報</a>
 									<a class="dropdown-item"
-										href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/userBuyHistory.html">注文履歴</a>
+										href="UserBuyHistory">注文履歴</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="Logout">ログアウト</a>
 								</div>

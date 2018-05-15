@@ -29,7 +29,7 @@
 	<table class="table">
 		<thead class="thead-light">
 			<tr>
-				<th scope="col" style="width: 10%">ID</th>
+				<th scope="col" style="width: 10%">ID <i class="fas fa-angle-down"></i></th>
 				<th scope="col" style="width: 25%">商品名</th>
 				<th scope="col" style="width: 15%">性別</th>
 				<th scope="col" style="width: 15%">カテゴリ</th>

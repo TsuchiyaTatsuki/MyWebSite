@@ -32,15 +32,25 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		//ログイン失敗時に使用するため
 		HttpSession session = request.getSession();
-		String inputLoginId = session.getAttribute("loginId") != null
-				? (String) EcHelper.cutSessionAttribute(session, "loginId")
-				: "";
-		String loginErrorMessage = (String) EcHelper.cutSessionAttribute(session, "loginErrorMessage");
-
-		request.setAttribute("inputLoginId", inputLoginId);
-		request.setAttribute("loginErrorMessage", loginErrorMessage);
-
-		request.getRequestDispatcher(EcHelper.LOGIN_PAGE).forward(request, response);
+		try {
+			Boolean isLogin = session.getAttribute("isLogin") != null ? (Boolean) session.getAttribute("isLogin")
+					: false;
+			if (isLogin) {
+				response.sendRedirect("Top");
+			} else {
+				String inputLoginId = session.getAttribute("loginId") != null
+						? (String) EcHelper.cutSessionAttribute(session, "loginId")
+						: "";
+				String loginErrorMessage = (String) EcHelper.cutSessionAttribute(session, "loginErrorMessage");
+				request.setAttribute("inputLoginId", inputLoginId);
+				request.setAttribute("loginErrorMessage", loginErrorMessage);
+				request.getRequestDispatcher(EcHelper.LOGIN_PAGE).forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMessage", e.toString());
+			response.sendRedirect("Error");
+		}
 	}
 
 	/**
@@ -49,7 +59,6 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

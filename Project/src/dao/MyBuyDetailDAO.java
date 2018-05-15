@@ -28,7 +28,7 @@ public class MyBuyDetailDAO {
 			try {
 				con = MyDBManager.getConnection();
 				st = con.prepareStatement(
-						"INSERT INTO t_buy_detail(buy_id,item_id) VALUES(?,?)");
+						"INSERT INTO buy(buy_id,item_id) VALUES(?,?)");
 				st.setInt(1, bddb.getBuyId());
 				st.setInt(2, bddb.getItemId());
 				st.executeUpdate();
@@ -96,13 +96,14 @@ public class MyBuyDetailDAO {
 				con = MyDBManager.getConnection();
 
 				st = con.prepareStatement(
-						"SELECT m_item.id,"
-						+ " m_item.name,"
-						+ " m_item.price"
-						+ " FROM t_buy_detail"
-						+ " JOIN m_item"
-						+ " ON t_buy_detail.item_id = m_item.id"
-						+ " WHERE t_buy_detail.buy_id = ?");
+						"SELECT item.id,"
+						+ " item.name,"
+						+ " item.price,"
+						+ " item.image"
+						+ " FROM buy"
+						+ " JOIN item"
+						+ " ON buy.item_id = item.id"
+						+ " WHERE buy.buy_id = ?");
 				st.setInt(1, buyId);
 
 				ResultSet rs = st.executeQuery();
@@ -113,8 +114,7 @@ public class MyBuyDetailDAO {
 					idb.setId(rs.getInt("id"));
 					idb.setName(rs.getString("name"));
 					idb.setPrice(rs.getInt("price"));
-
-
+					idb.setFileName(rs.getString("image"));
 					buyDetailItemList.add(idb);
 				}
 

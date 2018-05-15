@@ -21,18 +21,19 @@ import dao.MyUserDAO;
 public class UserInfoChangeResult extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserInfoChangeResult() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserInfoChangeResult() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -40,7 +41,8 @@ public class UserInfoChangeResult extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 
@@ -48,41 +50,45 @@ public class UserInfoChangeResult extends HttpServlet {
 
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+			if (lud == null) {
+				response.sendRedirect("Login");
+			} else {
 
-			SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+				SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
 
-			String name = request.getParameter("name");
-			String date = request.getParameter("birthDate");
-			String address = request.getParameter("address");
-			String loginId = request.getParameter("loginId");
+				String name = request.getParameter("name");
+				String date = request.getParameter("birthDate");
+				String address = request.getParameter("address");
+				String loginId = request.getParameter("loginId");
 
-			MyUserDataBeans udb = new MyUserDataBeans();
+				MyUserDataBeans udb = new MyUserDataBeans();
 
-			Date birthDate = format.parse(date);
-			udb.setName(name);
-			udb.setBirthDate(birthDate);
-			udb.setAddress(address);
-			udb.setLoginId(loginId);
-			udb.setId(lud.getId());
+				Date birthDate = format.parse(date);
+				udb.setName(name);
+				udb.setBirthDate(birthDate);
+				udb.setAddress(address);
+				udb.setLoginId(loginId);
+				udb.setId(lud.getId());
 
-			String confirmed = request.getParameter("confirm_button");
+				String confirmed = request.getParameter("confirm_button");
 
-			switch (confirmed) {
-			case "0":
-				session.setAttribute("udb", udb);
-				response.sendRedirect("UserInfoChange");
-				break;
+				switch (confirmed) {
+				case "0":
+					session.setAttribute("udb", udb);
+					response.sendRedirect("UserInfoChange");
+					break;
 
-			case "1":
+				case "1":
 
-				MyUserDAO.getInstance().infoChangeUser(udb);
-				MyUserDataBeans updateudb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
-				String updateMesse = "登録情報の更新が完了しました";
-				request.setAttribute("udb", updateudb);
-				request.setAttribute("updateMesse", updateMesse);
-				request.getRequestDispatcher(EcHelper.USER_INFO).forward(request, response);
-				break;
+					MyUserDAO.getInstance().infoChangeUser(udb);
+					MyUserDataBeans updateudb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
+					String updateMesse = "登録情報の更新が完了しました";
+					request.setAttribute("udb", updateudb);
+					request.setAttribute("updateMesse", updateMesse);
+					request.getRequestDispatcher(EcHelper.USER_INFO).forward(request, response);
+					break;
 
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

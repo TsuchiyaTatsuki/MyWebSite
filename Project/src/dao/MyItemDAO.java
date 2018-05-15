@@ -22,19 +22,23 @@ public class MyItemDAO {
 	 * @return <ItemDataBeans>
 	 * @throws SQLException
 	 */
-	public static ArrayList<MyItemDataBeans> getRandItem(int limit) throws SQLException {
+	public static ArrayList<MyItemDataBeans> getRandItem(int limit, int genderId) throws SQLException {
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
 			con = MyDBManager.getConnection();
 
-			st = con.prepareStatement("SELECT * FROM item ORDER BY RAND() LIMIT ? ");
-			st.setInt(1, limit);
+			if (genderId == 2) {
+				st = con.prepareStatement("SELECT * FROM item ORDER BY RAND() LIMIT ? ");
+				st.setInt(1, limit);
+			} else {
+				st = con.prepareStatement("SELECT * FROM item WHERE gender=? ORDER BY RAND() LIMIT ? ");
+				st.setInt(1, genderId);
+				st.setInt(2, limit);
+			}
 
 			ResultSet rs = st.executeQuery();
-
 			ArrayList<MyItemDataBeans> itemList = new ArrayList<MyItemDataBeans>();
-
 			while (rs.next()) {
 				MyItemDataBeans item = new MyItemDataBeans();
 				item.setId(rs.getInt("id"));
@@ -43,7 +47,42 @@ public class MyItemDAO {
 				item.setCategory(rs.getString("category"));
 				item.setDetail(rs.getString("item_detail"));
 				item.setPrice(rs.getInt("price"));
-				item.setFileName(rs.getString("image"));
+				item.setFileName(rs.getString("image") != null ? rs.getString("image") : "fuku_tatamu.png");
+				itemList.add(item);
+			}
+			System.out.println("getAllItem completed");
+			return itemList;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
+	//カテゴリーでランダムにアイテム取得
+	public static ArrayList<MyItemDataBeans> getRandItemByCategory(int limit, int categoryId) throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = MyDBManager.getConnection();
+
+			st = con.prepareStatement("SELECT * FROM item WHERE category=? ORDER BY RAND() LIMIT ? ");
+			st.setInt(1, categoryId);
+			st.setInt(2, limit);
+			ResultSet rs = st.executeQuery();
+			ArrayList<MyItemDataBeans> itemList = new ArrayList<MyItemDataBeans>();
+			while (rs.next()) {
+				MyItemDataBeans item = new MyItemDataBeans();
+				item.setId(rs.getInt("id"));
+				item.setName(rs.getString("name"));
+				item.setGender(rs.getInt("gender"));
+				item.setCategory(rs.getString("category"));
+				item.setDetail(rs.getString("item_detail"));
+				item.setPrice(rs.getInt("price"));
+				item.setFileName(rs.getString("image") != null ? rs.getString("image") : "fuku_tatamu.png");
 				itemList.add(item);
 			}
 			System.out.println("getAllItem completed");
@@ -107,7 +146,7 @@ public class MyItemDAO {
 		PreparedStatement st = null;
 		try {
 			con = MyDBManager.getConnection();
-			if(gender == 2) {
+			if (gender == 2) {
 				st = con.prepareStatement("SELECT * FROM category");
 			} else {
 				st = con.prepareStatement("SELECT * FROM category WHERE gender = ?");
@@ -144,27 +183,214 @@ public class MyItemDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public ArrayList<MyItemDataBeans> getItemsByItemName(String searchWord, int pageNum, int pageMaxItemCount)
+	public ArrayList<MyItemDataBeans> getItems(String searchWord, int categoryId, int genderId, int sortId, int page,
+			int pageMaxItemCount)
 			throws SQLException {
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			int startiItemNum = (pageNum - 1) * pageMaxItemCount;
+			int startiItemNum = (page - 1) * pageMaxItemCount;
 			con = MyDBManager.getConnection();
+			switch (sortId) {
+			case 0:
+				if (genderId != 2 || categoryId != 0) {
+					if (genderId != 2 && categoryId != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE gender=? and category=? ORDER BY id ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, categoryId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and gender=? and category=?  ORDER BY id ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, categoryId);
+							st.setInt(4, startiItemNum);
+							st.setInt(5, pageMaxItemCount);
+						}
+					} else if (genderId != 2) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement("SELECT * FROM item WHERE gender=? ORDER BY id ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and gender=? ORDER BY id ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					} else if (categoryId != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement("SELECT * FROM item WHERE category=? ORDER BY id ASC LIMIT ?,? ");
+							st.setInt(1, categoryId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and category=? ORDER BY id ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, categoryId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					}
+				} else {
+					if (searchWord.length() == 0) {
+						// 全検索
+						st = con.prepareStatement("SELECT * FROM item ORDER BY id ASC LIMIT ?,? ");
+						st.setInt(1, startiItemNum);
+						st.setInt(2, pageMaxItemCount);
+					} else {
+						// 商品名検索
+						st = con.prepareStatement("SELECT * FROM item WHERE name like ?  ORDER BY id ASC LIMIT ?,? ");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, startiItemNum);
+						st.setInt(3, pageMaxItemCount);
+					}
+				}
 
-			if (searchWord.length() == 0) {
-				// 全検索
-				st = con.prepareStatement("SELECT * FROM m_item ORDER BY id ASC LIMIT ?,? ");
-				st.setInt(1, startiItemNum);
-				st.setInt(2, pageMaxItemCount);
-			} else {
-				// 商品名検索
-				st = con.prepareStatement("SELECT * FROM m_item WHERE name like ?  ORDER BY id ASC LIMIT ?,? ");
-				st.setString(1, "%" + searchWord + "%");
-				st.setInt(2, startiItemNum);
-				st.setInt(3, pageMaxItemCount);
+				break;
+			case 1:
+				if (genderId != 2 || categoryId != 0) {
+					if (genderId != 2 && categoryId != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE gender=? and category=? ORDER BY price DESC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, categoryId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and gender=? and category=?  ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, categoryId);
+							st.setInt(4, startiItemNum);
+							st.setInt(5, pageMaxItemCount);
+						}
+					} else if (genderId != 2) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE gender=? ORDER BY price DESC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and gender=? ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					} else if (categoryId != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE category=? ORDER BY price DESC LIMIT ?,? ");
+							st.setInt(1, categoryId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and category=? ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, categoryId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					}
+				} else {
+					if (searchWord.length() == 0) {
+						// 全検索
+						st = con.prepareStatement("SELECT * FROM item ORDER BY price DESC LIMIT ?,? ");
+						st.setInt(1, startiItemNum);
+						st.setInt(2, pageMaxItemCount);
+					} else {
+						// 商品名検索
+						st = con.prepareStatement(
+								"SELECT * FROM item WHERE name like ?  ORDER BY price DESC LIMIT ?,? ");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, startiItemNum);
+						st.setInt(3, pageMaxItemCount);
+					}
+				}
+				break;
+			case 2:
+				if (genderId != 2 || categoryId != 0) {
+					if (genderId != 2 && categoryId != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE gender=? and category=? ORDER BY price ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, categoryId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and gender=? and category=?  ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, categoryId);
+							st.setInt(4, startiItemNum);
+							st.setInt(5, pageMaxItemCount);
+						}
+					} else if (genderId != 2) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE gender=? ORDER BY price ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and gender=? ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					} else if (categoryId != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE category=? ORDER BY price ASC LIMIT ?,? ");
+							st.setInt(1, categoryId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT * FROM item WHERE name like ? and category=? ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, categoryId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					}
+				} else {
+					if (searchWord.length() == 0) {
+						// 全検索
+						st = con.prepareStatement("SELECT * FROM item ORDER BY price ASC LIMIT ?,? ");
+						st.setInt(1, startiItemNum);
+						st.setInt(2, pageMaxItemCount);
+					} else {
+						// 商品名検索
+						st = con.prepareStatement(
+								"SELECT * FROM item WHERE name like ?  ORDER BY price ASC LIMIT ?,? ");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, startiItemNum);
+						st.setInt(3, pageMaxItemCount);
+					}
+				}
+				break;
+			default:
+				break;
 			}
-
 			ResultSet rs = st.executeQuery();
 			ArrayList<MyItemDataBeans> itemList = new ArrayList<MyItemDataBeans>();
 
@@ -172,9 +398,11 @@ public class MyItemDAO {
 				MyItemDataBeans item = new MyItemDataBeans();
 				item.setId(rs.getInt("id"));
 				item.setName(rs.getString("name"));
-				item.setDetail(rs.getString("detail"));
+				item.setGender(rs.getInt("gender"));
+				item.setCategoryId(rs.getInt("category"));
+				item.setDetail(rs.getString("item_detail"));
 				item.setPrice(rs.getInt("price"));
-				item.setFileName(rs.getString("image"));
+				item.setFileName(rs.getString("image") != null ? rs.getString("image") : "fuku_tatamu.png");
 				itemList.add(item);
 			}
 			System.out.println("get Items by itemName has been completed");
@@ -235,13 +463,57 @@ public class MyItemDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static double getItemCount(String searchWord) throws SQLException {
+	public static double getItemCount(String searchWord, int categoryId, int genderId) throws SQLException {
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
 			con = MyDBManager.getConnection();
-			st = con.prepareStatement("select count(*) as cnt from m_item where name like ?");
-			st.setString(1, "%" + searchWord + "%");
+			if (genderId != 2 || categoryId != 0) {
+				if (genderId != 2 && categoryId != 0) {
+					if (searchWord.length() == 0) {
+						st = con.prepareStatement(
+								"SELECT count(*) as cnt FROM item WHERE gender=? and category=?");
+						st.setInt(1, genderId);
+						st.setInt(2, categoryId);
+					} else {
+						st = con.prepareStatement(
+								"SELECT count(*) as cnt FROM item WHERE name like ? and gender=? and category=?");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, genderId);
+						st.setInt(3, categoryId);
+					}
+				} else if (genderId != 2) {
+					if (searchWord.length() == 0) {
+						st = con.prepareStatement("SELECT count(*) as cnt FROM item WHERE gender=?");
+						st.setInt(1, genderId);
+					} else {
+						st = con.prepareStatement(
+								"SELECT count(*) as cnt FROM item WHERE name like ? and gender=?");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, genderId);
+					}
+				} else if (categoryId != 0) {
+					if (searchWord.length() == 0) {
+						st = con.prepareStatement("SELECT count(*) as cnt FROM item WHERE category=?");
+						st.setInt(1, categoryId);
+					} else {
+						st = con.prepareStatement(
+								"SELECT count(*) as cnt FROM item WHERE name like ? and category=?");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, categoryId);
+					}
+				}
+			} else {
+				if (searchWord.length() == 0) {
+					// 全検索
+					st = con.prepareStatement("SELECT count(*) as cnt FROM item");
+				} else {
+					// 商品名検索
+					st = con.prepareStatement("select count(*) as cnt FROM item where name like ?");
+					st.setString(1, "%" + searchWord + "%");
+				}
+			}
+
 			ResultSet rs = st.executeQuery();
 			double coung = 0.0;
 			while (rs.next()) {
@@ -319,7 +591,8 @@ public class MyItemDAO {
 		try {
 
 			con = MyDBManager.getConnection();
-			st = con.prepareStatement("INSERT INTO item(name,gender,category,item_detail,price,image) VALUES(?,?,?,?,?,?)");
+			st = con.prepareStatement(
+					"INSERT INTO item(name,gender,category,item_detail,price,image) VALUES(?,?,?,?,?,?)");
 
 			st.setString(1, newItem.getName());
 			st.setInt(2, newItem.getGender());

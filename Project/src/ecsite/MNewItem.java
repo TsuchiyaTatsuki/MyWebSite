@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.MyItemDataBeans;
+import beans.MyUserDataBeans;
 import dao.MyItemDAO;
 
 /**
@@ -38,15 +39,19 @@ public class MNewItem extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
-			session.removeAttribute("newItem");
+			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+			if (lud == null || lud.getId() != 1) {
+				response.sendRedirect("Top");
+			} else {
+				session.removeAttribute("newItem");
 
-			ArrayList<MyItemDataBeans> menCate = MyItemDAO.getCategoryByGender(0);
-			ArrayList<MyItemDataBeans> womenCate = MyItemDAO.getCategoryByGender(1);
+				ArrayList<MyItemDataBeans> menCate = MyItemDAO.getCategoryByGender(0);
+				ArrayList<MyItemDataBeans> womenCate = MyItemDAO.getCategoryByGender(1);
 
-			session.setAttribute("menCate", menCate);
-			session.setAttribute("womenCate", womenCate);
-			request.getRequestDispatcher(EcHelper.M_NEW_ITEM).forward(request, response);
-
+				session.setAttribute("menCate", menCate);
+				session.setAttribute("womenCate", womenCate);
+				request.getRequestDispatcher(EcHelper.M_NEW_ITEM).forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
@@ -75,7 +80,7 @@ public class MNewItem extends HttpServlet {
 			newItem.setDetail(detail);
 			newItem.setPrice(price);
 
-			if(request.getParameter("fileName").equals("0")) {
+			if (request.getParameter("fileName").equals("0")) {
 				String fileName = null;
 				newItem.setFileName(fileName);
 			} else {
@@ -83,12 +88,12 @@ public class MNewItem extends HttpServlet {
 				newItem.setFileName(fileName);
 			}
 
-			if(Integer.parseInt(request.getParameter("menCate")) != 0) {
+			if (Integer.parseInt(request.getParameter("menCate")) != 0) {
 				int category = Integer.parseInt(request.getParameter("menCate"));
 				newItem.setGender(0);
 				newItem.setCategoryId(category);
 
-			} else if(Integer.parseInt(request.getParameter("womenCate")) != 0) {
+			} else if (Integer.parseInt(request.getParameter("womenCate")) != 0) {
 				int category = Integer.parseInt(request.getParameter("womenCate"));
 				newItem.setGender(1);
 				newItem.setCategoryId(category);
@@ -104,11 +109,10 @@ public class MNewItem extends HttpServlet {
 
 			String updateMesse = "アイテムの追加が完了しました";
 
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getAllItem();
+			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getAllItem();
 			request.setAttribute("itemList", itemList);
 			request.setAttribute("updateMesse", updateMesse);
 			request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
-
 
 		} catch (Exception e) {
 			e.printStackTrace();

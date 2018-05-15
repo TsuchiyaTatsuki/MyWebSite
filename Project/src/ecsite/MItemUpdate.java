@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.MyItemDataBeans;
+import beans.MyUserDataBeans;
 import dao.MyItemDAO;
 
 /**
@@ -20,31 +21,37 @@ import dao.MyItemDAO;
 public class MItemUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MItemUpdate() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public MItemUpdate() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
-			int itemId = Integer.parseInt(request.getParameter("itemId"));
-			int gender = Integer.parseInt(request.getParameter("gender"));
-			MyItemDataBeans idb = MyItemDAO.getItemByItemID(itemId);
-			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
+			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+			if (lud == null || lud.getId() != 1) {
+				response.sendRedirect("Top");
+			} else {
+				int itemId = Integer.parseInt(request.getParameter("itemId"));
+				int gender = Integer.parseInt(request.getParameter("gender"));
+				MyItemDataBeans idb = MyItemDAO.getItemByItemID(itemId);
+				ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
 
-			session.setAttribute("idb", idb);
-			session.setAttribute("cateList", cateList);
+				session.setAttribute("idb", idb);
+				session.setAttribute("cateList", cateList);
 
-			request.getRequestDispatcher(EcHelper.M_ITEM_UPDATE).forward(request, response);
+				request.getRequestDispatcher(EcHelper.M_ITEM_UPDATE).forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
@@ -56,7 +63,8 @@ public class MItemUpdate extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
@@ -83,7 +91,7 @@ public class MItemUpdate extends HttpServlet {
 			MyItemDAO.getInstance().itemUpdate(updateidb);
 			String updateMesse = "アイテムID: " + idb.getId() + " の更新が完了しました";
 
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getAllItem();
+			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getAllItem();
 			request.setAttribute("itemList", itemList);
 			request.setAttribute("updateMesse", updateMesse);
 			request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);

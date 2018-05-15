@@ -39,6 +39,26 @@
 			<h6>${itemdb.detail }</h6>
 		</div>
 	</div>
+	<div style="padding-top: 2rem;">
+		<hr class="my-4">
+		<h5>関連するアイテム</h5>
+		<div class="row" style="padding: 20px;">
+			<!-- 商品カード -->
+			<c:forEach var="item" items="${relationItemList }">
+				<div class="col-2">
+					<div class="card" style="width: 9rem; border: none;">
+						<a href="Item?itemId=${item.id }"><img
+							class="card-img-top" src="img/${item.fileName }"
+							alt="Card image cap" style="height: 9rem;"></a>
+						<div class="card-body">
+							<p class="card-text">${item.name }<br>${item.formatPrice }</p>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+			<!-- 商品カード -->
+		</div>
+	</div>
 	<jsp:include page="/baselayout/footer.jsp" />
 </body>
 </html>

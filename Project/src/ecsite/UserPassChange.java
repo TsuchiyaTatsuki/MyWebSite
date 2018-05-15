@@ -19,18 +19,19 @@ import dao.MyUserDAO;
 public class UserPassChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserPassChange() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserPassChange() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getRequestDispatcher(EcHelper.USER_PASS_CHANGE).forward(request, response);
 	}
@@ -38,7 +39,8 @@ public class UserPassChange extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 
@@ -46,32 +48,34 @@ public class UserPassChange extends HttpServlet {
 
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
-			MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
-
-			String newPassword = request.getParameter("newPassword");
-			String password = request.getParameter("password");
-			String passwordCon = request.getParameter("passwordCon");
-
-
-			String validationMessage = "";
-
-			if(!EcHelper.getSha256(password).equals(udb.getPassword())) {
-				validationMessage += "現在のパスワードが正しくありません<br>";
-			}
-			if(!password.equals(passwordCon)) {
-				validationMessage += "パスワードと確認パスワードが違います<br>";
-			}
-			if (validationMessage.length() == 0) {
-				MyUserDAO.getInstance().passChangeUser(lud.getId(), newPassword);
-				String updateMesse = "パスワードの更新が完了しました";
-				request.setAttribute("updateMesse", updateMesse);
-				request.setAttribute("udb", udb);
-				request.getRequestDispatcher(EcHelper.USER_INFO).forward(request, response);
+			if (lud == null) {
+				response.sendRedirect("Login");
 			} else {
-				request.setAttribute("validationMessage", validationMessage);
-				request.getRequestDispatcher(EcHelper.USER_PASS_CHANGE).forward(request, response);
-			}
+				MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
 
+				String newPassword = request.getParameter("newPassword");
+				String password = request.getParameter("password");
+				String passwordCon = request.getParameter("passwordCon");
+
+				String validationMessage = "";
+
+				if (!EcHelper.getSha256(password).equals(udb.getPassword())) {
+					validationMessage += "現在のパスワードが正しくありません<br>";
+				}
+				if (!password.equals(passwordCon)) {
+					validationMessage += "パスワードと確認パスワードが違います<br>";
+				}
+				if (validationMessage.length() == 0) {
+					MyUserDAO.getInstance().passChangeUser(lud.getId(), newPassword);
+					String updateMesse = "パスワードの更新が完了しました";
+					request.setAttribute("updateMesse", updateMesse);
+					request.setAttribute("udb", udb);
+					request.getRequestDispatcher(EcHelper.USER_INFO).forward(request, response);
+				} else {
+					request.setAttribute("validationMessage", validationMessage);
+					request.getRequestDispatcher(EcHelper.USER_PASS_CHANGE).forward(request, response);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

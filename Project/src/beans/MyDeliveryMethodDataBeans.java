@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 
 public class MyDeliveryMethodDataBeans implements Serializable {
 	private int id;
@@ -25,6 +26,10 @@ public class MyDeliveryMethodDataBeans implements Serializable {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public String getFormatPrice() {
+		NumberFormat nfCur = NumberFormat.getCurrencyInstance();
+		return nfCur.format(price);
 	}
 }
 

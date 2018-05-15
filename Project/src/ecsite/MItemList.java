@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.MyItemDataBeans;
+import beans.MyUserDataBeans;
 import dao.MyItemDAO;
 
 /**
@@ -38,12 +39,14 @@ public class MItemList extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
-
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getAllItem();
-			request.setAttribute("itemList", itemList);
-
-			request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
-
+			MyUserDataBeans lud = (MyUserDataBeans)session.getAttribute("lud");
+			if (lud == null || lud.getId() != 1 ) {
+				response.sendRedirect("Top");
+			} else {
+				ArrayList<MyItemDataBeans>itemList = MyItemDAO.getAllItem();
+				request.setAttribute("itemList", itemList);
+				request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

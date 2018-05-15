@@ -21,18 +21,19 @@ import dao.MyUserDAO;
 public class UserInfoChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserInfoChange() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserInfoChange() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 
@@ -40,13 +41,16 @@ public class UserInfoChange extends HttpServlet {
 
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+			if (lud == null) {
+				response.sendRedirect("Login");
+			} else {
 
-			MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
+				MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
 
-			request.setAttribute("udb", udb);
+				request.setAttribute("udb", udb);
 
-			request.getRequestDispatcher(EcHelper.USER_INFO_CHANGE).forward(request, response);
-
+				request.getRequestDispatcher(EcHelper.USER_INFO_CHANGE).forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
@@ -57,7 +61,8 @@ public class UserInfoChange extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 

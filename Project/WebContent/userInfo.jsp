@@ -13,7 +13,7 @@
 	<nav aria-label="breadcrumb" style="padding-top: 10px;">
 		<ol class="breadcrumb bg-white">
 			<li class="breadcrumb-item"><a
-				href="file:///C:/Users/USER/Documents/PersonalDevelopment/PersonalMock/top.html">Home</a></li>
+				href="Top">Home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">登録情報</li>
 		</ol>
 	</nav>

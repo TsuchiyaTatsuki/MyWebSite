@@ -61,10 +61,11 @@ public class MyUserDAO {
 		PreparedStatement st = null;
 		try {
 			con = MyDBManager.getConnection();
-			st = con.prepareStatement("SELECT name, login_id, birth_date, address, password FROM user WHERE id =" + userId);
+			st = con.prepareStatement("SELECT id, name, login_id, birth_date, address, password FROM user WHERE id =" + userId);
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
+				udb.setId(rs.getInt("id"));
 				udb.setBirthDate(rs.getDate("birth_date"));
 				udb.setName(rs.getString("name"));
 				udb.setLoginId(rs.getString("login_id"));

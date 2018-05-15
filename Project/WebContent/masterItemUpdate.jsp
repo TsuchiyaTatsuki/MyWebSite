@@ -37,6 +37,9 @@
 						</c:choose>
 					</div>
 					<div class="col-sm-8 align-self-end">
+					<c:if test="${errorMesse != null }">
+					<p class="text-danger">${errorMesse }</p>
+					</c:if>
 						<div class="input-group mb-3">
 							<div class="custom-file">
 								<input name="file" type="file" class="custom-file-input"

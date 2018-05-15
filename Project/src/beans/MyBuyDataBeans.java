@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,8 +18,6 @@ public class MyBuyDataBeans  implements Serializable {
 	public MyBuyDataBeans() {
 
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -60,7 +59,7 @@ public class MyBuyDataBeans  implements Serializable {
 	}
 
 	public String getFormatDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日H時mm分");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
 		return sdf.format(buyDate);
 	}
 	public int getDeliveryMethodPrice() {
@@ -69,6 +68,13 @@ public class MyBuyDataBeans  implements Serializable {
 	public void setDeliveryMethodPrice(int deliveryMethodPrice) {
 		this.deliveryMethodPrice = deliveryMethodPrice;
 	}
-
+	public String getFormatPrice() {
+		NumberFormat nfCur = NumberFormat.getCurrencyInstance();
+		return nfCur.format(totalPrice);
+	}
+	public String getFormatDeliveryMethodPrice() {
+		NumberFormat nfCur = NumberFormat.getCurrencyInstance();
+		return nfCur.format(deliveryMethodPrice);
+	}
 
 }

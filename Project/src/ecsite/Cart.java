@@ -40,8 +40,14 @@ public class Cart extends HttpServlet {
 			ArrayList<MyItemDataBeans> cart = (ArrayList<MyItemDataBeans>) session.getAttribute("cart");
 			if (cart == null) {
 				cart = new ArrayList<MyItemDataBeans>();
-				session.setAttribute("cart", cart);
 			}
+			NumberFormat nfCur = NumberFormat.getCurrencyInstance();
+			int totalPrice = EcHelper.getTotalItemPrice(cart);
+			String formatSubTotalPrice = nfCur.format(totalPrice);
+
+			session.setAttribute("cart", cart);
+			request.setAttribute("totalPrice", totalPrice);
+			request.setAttribute("formatSubTotalPrice", formatSubTotalPrice);
 			request.getRequestDispatcher(EcHelper.CART_PAGE).forward(request, response);
 
 		} catch (Exception e) {
@@ -69,9 +75,11 @@ public class Cart extends HttpServlet {
 			MyItemDataBeans itemdb = MyItemDAO.getItemByItemID(itemId);
 			cart.add(itemdb);
 			NumberFormat nfCur = NumberFormat.getCurrencyInstance();
-			String formatTotalPrice = nfCur.format(EcHelper.getTotalItemPrice(cart));
+			int totalPrice = EcHelper.getTotalItemPrice(cart);
+			String formatSubTotalPrice = nfCur.format(totalPrice);
 
-			session.setAttribute("formatTotalPrice", formatTotalPrice);
+			request.setAttribute("totalPrice", totalPrice);
+			request.setAttribute("formatSubTotalPrice", formatSubTotalPrice);
 			session.setAttribute("cart", cart);
 			request.getRequestDispatcher(EcHelper.CART_PAGE).forward(request, response);
 

@@ -32,6 +32,7 @@ public class MyLogout extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("isLogin", false);
 		session.removeAttribute("lud");
+
 		request.setAttribute("logoutMesse", "ログアウトしました");
 		request.getRequestDispatcher(EcHelper.LOGIN_PAGE).forward(request, response);
 	}

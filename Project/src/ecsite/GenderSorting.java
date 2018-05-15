@@ -42,16 +42,12 @@ public class GenderSorting extends HttpServlet {
 			} else {
 				gender = Integer.parseInt(request.getParameter("gender"));
 			}
-
 			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
 
 			session.setAttribute("genderId", gender);
-			session.setAttribute("cateList", cateList);
-			String searchWord = (String)session.getAttribute("searchWord");
-			if(searchWord != null) {
-				session.removeAttribute("searchWord");
-			}
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(4);
+			request.setAttribute("cateList", cateList);
+
+			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(12, gender);
 			request.setAttribute("itemList", itemList);
 			request.getRequestDispatcher(EcHelper.TOP_PAGE).forward(request, response);
 		} catch (Exception e) {

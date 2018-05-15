@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.MyItemDataBeans;
+import beans.MyUserDataBeans;
 import dao.MyItemDAO;
 
 /**
@@ -37,13 +38,17 @@ public class MItemDelete extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
+			MyUserDataBeans lud = (MyUserDataBeans)session.getAttribute("lud");
+			if (lud == null || lud.getId() != 1 ) {
+				response.sendRedirect("Top");
+			} else {
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
 			MyItemDataBeans idb = MyItemDAO.getItemByItemID(itemId);
 
 			session.setAttribute("idb", idb);
 
 			request.getRequestDispatcher(EcHelper.M_ITEM_DELETE).forward(request, response);
-
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

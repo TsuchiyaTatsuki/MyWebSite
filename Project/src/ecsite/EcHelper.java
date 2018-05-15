@@ -10,7 +10,7 @@ import beans.MyItemDataBeans;
 
 public class EcHelper {
 	// 検索結果
-	static final String SEARCH_RESULT_PAGE = "/itemsearchresult.jsp";
+	static final String SEARCH_RESULT_PAGE = "/itemSearchResult.jsp";
 	// 商品ページ
 	static final String ITEM_PAGE = "/item.jsp";
 	// TOPページ
@@ -21,10 +21,8 @@ public class EcHelper {
 	static final String CART_PAGE = "/cart.jsp";
 	// 購入
 	static final String BUY_PAGE = "/buy.jsp";
-	// 購入確認
-	static final String BUY_CONFIRM_PAGE = "/buyconfirm.jsp";
 	// 購入完了
-	static final String BUY_RESULT_PAGE = "/buyresult.jsp";
+	static final String BUY_RESULT_PAGE = "/buyResult.jsp";
 	// ユーザー情報
 	static final String USER_INFO = "/userInfo.jsp";
 	// ユーザー情報更新画面
@@ -34,7 +32,7 @@ public class EcHelper {
 	// ユーザー情報更新完了
 	static final String USER_PASS_CHANGE = "/userPassChange.jsp";
 	// ユーザー購入履歴
-	static final String USER_BUY_HISTORY_DETAIL_PAGE = "/userbuyhistorydetail.jsp";
+	static final String USER_BUY_HISTORY = "/userBuyHistory.jsp";
 	// アイテム一覧（管理者）
 	static final String M_ITEM_LIST = "masterItemList.jsp";
 	// アイテム追加（管理者）

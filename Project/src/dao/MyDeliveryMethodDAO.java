@@ -26,17 +26,17 @@ public class MyDeliveryMethodDAO {
 		try {
 			con = MyDBManager.getConnection();
 
-			st = con.prepareStatement("SELECT * FROM m_delivery_method");
+			st = con.prepareStatement("SELECT * FROM delivery_method");
 
 			ResultSet rs = st.executeQuery();
 
 			ArrayList<MyDeliveryMethodDataBeans> deliveryMethodDataBeansList = new ArrayList<MyDeliveryMethodDataBeans>();
 			while (rs.next()) {
-				MyDeliveryMethodDataBeans dmdb = new MyDeliveryMethodDataBeans();
-				dmdb.setId(rs.getInt("id"));
-				dmdb.setName(rs.getString("name"));
-				dmdb.setPrice(rs.getInt("price"));
-				deliveryMethodDataBeansList.add(dmdb);
+				MyDeliveryMethodDataBeans dm = new MyDeliveryMethodDataBeans();
+				dm.setId(rs.getInt("id"));
+				dm.setName(rs.getString("name"));
+				dm.setPrice(rs.getInt("price"));
+				deliveryMethodDataBeansList.add(dm);
 			}
 
 			System.out.println("searching all DeliveryMethodDataBeans has been completed");
@@ -58,15 +58,15 @@ public class MyDeliveryMethodDAO {
 	 * @return DeliveryMethodDataBeans
 	 * @throws SQLException
 	 */
-	public static MyDeliveryMethodDataBeans getDeliveryMethodDataBeansByID(int DeliveryMethodId) throws SQLException {
+	public static MyDeliveryMethodDataBeans getDeliveryMethodDataBeansByID(int dmId) throws SQLException {
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
 			con = MyDBManager.getConnection();
 
 			st = con.prepareStatement(
-					"SELECT * FROM m_delivery_method WHERE id = ?");
-			st.setInt(1, DeliveryMethodId);
+					"SELECT * FROM delivery_method WHERE id = ?");
+			st.setInt(1, dmId);
 
 			ResultSet rs = st.executeQuery();
 
@@ -117,7 +117,7 @@ public class MyDeliveryMethodDAO {
 
 			while (rs.next()) {
 				dmdb.setName(rs.getString("name"));
-				dmdb.setPrice(rs.getInt("m_delivery_method.price"));
+				dmdb.setPrice(rs.getInt("delivery_method.price"));
 
 			}
 

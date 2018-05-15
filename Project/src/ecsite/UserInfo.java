@@ -39,13 +39,16 @@ public class UserInfo extends HttpServlet {
 
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+			if (lud == null) {
+				response.sendRedirect("Login");
+			} else {
 
-			MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
+				MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());
 
-			request.setAttribute("udb", udb);
+				request.setAttribute("udb", udb);
 
-			request.getRequestDispatcher(EcHelper.USER_INFO).forward(request, response);
-
+				request.getRequestDispatcher(EcHelper.USER_INFO).forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
