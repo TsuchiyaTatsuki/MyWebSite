@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.MyCategoryDataBeans;
 import beans.MyItemDataBeans;
-import dao.MyCategoryDAO;
 import dao.MyItemDAO;
 
 /**
@@ -43,62 +41,44 @@ public class ItemSearchResult extends HttpServlet {
 			int sortId;
 			String searchWord;
 			int genderId;
-			int categoryId;
+			String categoryName;
 			int page;
 			double itemCount;
 			int pageMax;
 			if (request.getParameter("sortId") == null) {
-				if (session.getAttribute("sortId") == null) {
-					sortId = 0;
-				} else {
-					sortId = (int) session.getAttribute("sortId");
-				}
+				sortId = session.getAttribute("sortId") == null ? 0 : (int) session.getAttribute("sortId");
 			} else {
 				sortId = Integer.parseInt(request.getParameter("sortId"));
 			}
 			if (request.getParameter("searchWord") == null) {
-				if (session.getAttribute("searchWord") == null) {
-					searchWord = "";
-				} else {
-					searchWord = (String) session.getAttribute("searchWord");
-				}
+				searchWord = session.getAttribute("searchWord") == null ? ""
+						: (String) session.getAttribute("searchWord");
 			} else {
 				searchWord = request.getParameter("searchWord");
 			}
-			if (request.getParameter("categoryId") == null) {
-				if (session.getAttribute("categoryId") == null) {
-					categoryId = 0;
-				} else {
-					categoryId = (int) session.getAttribute("categoryId");
-				}
+			if (request.getParameter("categoryName") == null) {
+				categoryName = session.getAttribute("categoryName") == null ? ""
+						: (String) session.getAttribute("categoryName");
 			} else {
-				categoryId = Integer.parseInt(request.getParameter("categoryId"));
+				categoryName = request.getParameter("categoryName");
 			}
 			if (request.getParameter("genderId") == null) {
-				if (session.getAttribute("genderId") == null) {
-					genderId = 2;
-				} else {
-					genderId = (int) session.getAttribute("genderId");
-				}
+				genderId = session.getAttribute("genderId") == null ? 2 : (int) session.getAttribute("genderId");
 			} else {
 				genderId = Integer.parseInt(request.getParameter("genderId"));
 			}
 
 			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(genderId);
 			page = Integer.parseInt(request.getParameter("page") == null ? "1" : request.getParameter("page"));
-			itemCount = MyItemDAO.getItemCount(searchWord, categoryId, genderId);
+			itemCount = MyItemDAO.getItemCount(searchWord, categoryName, genderId);
 			pageMax = (int) Math.ceil(itemCount / PAGE_MAX_ITEM_COUNT);
 
-			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getInstance().getItems(searchWord, categoryId, genderId,
+			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getInstance().getItems(searchWord, categoryName, genderId,
 					sortId, page, PAGE_MAX_ITEM_COUNT);
 
-			if (categoryId != 0) {
-				MyCategoryDataBeans category = MyCategoryDAO.getCategory(categoryId);
-				session.setAttribute("category", category);
-			}
 			session.setAttribute("sortId", sortId);
 			session.setAttribute("searchWord", searchWord);
-			session.setAttribute("categoryId", categoryId);
+			session.setAttribute("categoryName", categoryName);
 			session.setAttribute("genderId", genderId);
 			request.setAttribute("itemList", itemList);
 			request.setAttribute("cateList", cateList);
@@ -122,6 +102,13 @@ public class ItemSearchResult extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
+			int sortId;
+			String searchWord;
+			int genderId;
+			String categoryName;
+			int page;
+			double itemCount;
+			int pageMax;
 			if (request.getParameter("close") != null) {
 				switch (request.getParameter("close")) {
 				case "searchWordClose":
@@ -131,72 +118,51 @@ public class ItemSearchResult extends HttpServlet {
 					session.removeAttribute("genderId");
 					break;
 				case "categoryClose":
-					session.removeAttribute("categoryId");
-					session.removeAttribute("category");
+					session.removeAttribute("categoryName");
+					break;
+				case "allClose":
+					session.removeAttribute("searchWord");
+					session.removeAttribute("genderId");
+					session.removeAttribute("categoryName");
 					break;
 				default:
 					break;
 				}
 			}
-			int sortId;
-			String searchWord;
-			int genderId;
-			int categoryId;
-			int page;
-			double itemCount;
-			int pageMax;
 			if (request.getParameter("sortId") == null) {
-				if (session.getAttribute("sortId") == null) {
-					sortId = 0;
-				} else {
-					sortId = (int) session.getAttribute("sortId");
-				}
+				sortId = session.getAttribute("sortId") == null ? 0 : (int) session.getAttribute("sortId");
 			} else {
 				sortId = Integer.parseInt(request.getParameter("sortId"));
 			}
 			if (request.getParameter("searchWord") == null) {
-				if (session.getAttribute("searchWord") == null) {
-					searchWord = "";
-				} else {
-					searchWord = (String) session.getAttribute("searchWord");
-				}
+				searchWord = session.getAttribute("searchWord") == null ? ""
+						: (String) session.getAttribute("searchWord");
 			} else {
 				searchWord = request.getParameter("searchWord");
 			}
-			if (request.getParameter("categoryId") == null) {
-				if (session.getAttribute("categoryId") == null) {
-					categoryId = 0;
-				} else {
-					categoryId = (int) session.getAttribute("categoryId");
-				}
+			if (request.getParameter("categoryName") == null) {
+				categoryName = session.getAttribute("categoryName") == null ? ""
+						: (String) session.getAttribute("categoryName");
 			} else {
-				categoryId = Integer.parseInt(request.getParameter("categoryId"));
+				categoryName = request.getParameter("categoryName");
 			}
 			if (request.getParameter("genderId") == null) {
-				if (session.getAttribute("genderId") == null) {
-					genderId = 2;
-				} else {
-					genderId = (int) session.getAttribute("genderId");
-				}
+					genderId = session.getAttribute("genderId") == null ? 2 : (int)session.getAttribute("genderId");
 			} else {
 				genderId = Integer.parseInt(request.getParameter("genderId"));
 			}
 
 			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(genderId);
 			page = Integer.parseInt(request.getParameter("page") == null ? "1" : request.getParameter("page"));
-			itemCount = MyItemDAO.getItemCount(searchWord, categoryId, genderId);
+			itemCount = MyItemDAO.getItemCount(searchWord, categoryName, genderId);
 			pageMax = (int) Math.ceil(itemCount / PAGE_MAX_ITEM_COUNT);
 
-			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getInstance().getItems(searchWord, categoryId, genderId,
+			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getInstance().getItems(searchWord, categoryName, genderId,
 					sortId, page, PAGE_MAX_ITEM_COUNT);
 
-			if (categoryId != 0) {
-				MyCategoryDataBeans category = MyCategoryDAO.getCategory(categoryId);
-				session.setAttribute("category", category);
-			}
 			session.setAttribute("sortId", sortId);
 			session.setAttribute("searchWord", searchWord);
-			session.setAttribute("categoryId", categoryId);
+			session.setAttribute("categoryName", categoryName);
 			session.setAttribute("genderId", genderId);
 			request.setAttribute("itemList", itemList);
 			request.setAttribute("cateList", cateList);

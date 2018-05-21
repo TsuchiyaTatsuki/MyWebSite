@@ -40,6 +40,7 @@ public class UserInfo extends HttpServlet {
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
 			if (lud == null) {
+				session.setAttribute("returnStrUrl", "UserInfo");
 				response.sendRedirect("Login");
 			} else {
 

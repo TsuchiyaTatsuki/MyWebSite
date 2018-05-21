@@ -45,12 +45,12 @@ public class UserInfoChangeResult extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-
 		HttpSession session = request.getSession();
 
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
 			if (lud == null) {
+				session.setAttribute("returnStrUrl", "UserInfoChange");
 				response.sendRedirect("Login");
 			} else {
 

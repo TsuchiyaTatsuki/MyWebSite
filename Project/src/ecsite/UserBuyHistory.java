@@ -44,6 +44,7 @@ public class UserBuyHistory extends HttpServlet {
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
 			if (lud == null ) {
+				session.setAttribute("returnStrUrl", "UserBuyHistory");
 				response.sendRedirect("Login");
 			} else {
 				int page = Integer.parseInt(request.getParameter("page") == null ? "1" : request.getParameter("page"));

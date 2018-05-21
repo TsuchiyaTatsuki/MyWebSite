@@ -12,8 +12,7 @@
 	<jsp:include page="/baselayout/header.jsp" />
 	<nav aria-label="breadcrumb" style="padding-top: 10px;">
 		<ol class="breadcrumb bg-white">
-			<li class="breadcrumb-item"><a
-				href="Top">Home</a></li>
+			<li class="breadcrumb-item"><a href="Top">Home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">注文履歴</li>
 		</ol>
 	</nav>
@@ -82,36 +81,38 @@
 				</c:otherwise>
 			</c:choose>
 			<div style="padding-top: 30px;">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-end">
-						<c:choose>
-							<c:when test="${page == null || page == 1 }">
-								<li class="page-item disabled"><a
-									class="page-link border-0"><i class="fas fa-angle-left"></i></a></li>
-							</c:when>
-							<c:otherwise>
+				<c:if test="${buyList.size() != 0 }">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-end">
+							<c:choose>
+								<c:when test="${page == null || page == 1 }">
+									<li class="page-item disabled"><a
+										class="page-link border-0"><i class="fas fa-angle-left"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link border-0"
+										href="UserBuyHistory?page=${page - 1 }"><i
+											class="fas fa-angle-left"></i></a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:forEach var="i" begin="1" end="${pageMax }" step="1">
 								<li class="page-item"><a class="page-link border-0"
-									href="UserBuyHistory?page=${page - 1 }"><i
-										class="fas fa-angle-left"></i></a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:forEach var="i" begin="1" end="${pageMax }" step="1">
-							<li class="page-item"><a class="page-link border-0"
-								href="UserBuyHistory?page=${i }">${i }</a></li>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${pageMax == page }">
-								<li class="page-item disabled"><a
-									class="page-link border-0"><i class="fas fa-angle-right"></i></a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link border-0"
-									href="UserBuyHistory?page=${page + 1 }"><i
-										class="fas fa-angle-right"></i></a></li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
-				</nav>
+									href="UserBuyHistory?page=${i }">${i }</a></li>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${pageMax == page }">
+									<li class="page-item disabled"><a
+										class="page-link border-0"><i class="fas fa-angle-right"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link border-0"
+										href="UserBuyHistory?page=${page + 1 }"><i
+											class="fas fa-angle-right"></i></a></li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+					</nav>
+				</c:if>
 			</div>
 		</div>
 	</div>

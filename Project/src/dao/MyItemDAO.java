@@ -147,7 +147,7 @@ public class MyItemDAO {
 		try {
 			con = MyDBManager.getConnection();
 			if (gender == 2) {
-				st = con.prepareStatement("SELECT * FROM category");
+				st = con.prepareStatement("SELECT * FROM category GROUP BY category_name ORDER BY id ASC");
 			} else {
 				st = con.prepareStatement("SELECT * FROM category WHERE gender = ?");
 				st.setInt(1, gender);
@@ -183,7 +183,7 @@ public class MyItemDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public ArrayList<MyItemDataBeans> getItems(String searchWord, int categoryId, int genderId, int sortId, int page,
+	public ArrayList<MyItemDataBeans> getItems(String searchWord, String categoryName, int genderId, int sortId, int page,
 			int pageMaxItemCount)
 			throws SQLException {
 		Connection con = null;
@@ -193,49 +193,50 @@ public class MyItemDAO {
 			con = MyDBManager.getConnection();
 			switch (sortId) {
 			case 0:
-				if (genderId != 2 || categoryId != 0) {
-					if (genderId != 2 && categoryId != 0) {
+				if (genderId != 2 || !categoryName.equals("")) {
+					if (genderId != 2 && !categoryName.equals("")) {
 						if (searchWord.length() == 0) {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE gender=? and category=? ORDER BY id ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=? ORDER BY item.id DESC LIMIT ?,? ");
 							st.setInt(1, genderId);
-							st.setInt(2, categoryId);
+							st.setString(2, categoryName);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and gender=? and category=?  ORDER BY id ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=?  ORDER BY item.id DESC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
 							st.setInt(2, genderId);
-							st.setInt(3, categoryId);
+							st.setString(3, categoryName);
 							st.setInt(4, startiItemNum);
 							st.setInt(5, pageMaxItemCount);
 						}
 					} else if (genderId != 2) {
 						if (searchWord.length() == 0) {
-							st = con.prepareStatement("SELECT * FROM item WHERE gender=? ORDER BY id ASC LIMIT ?,? ");
+							st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id WHERE item.gender=? ORDER BY item.id DESC LIMIT ?,? ");
 							st.setInt(1, genderId);
 							st.setInt(2, startiItemNum);
 							st.setInt(3, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and gender=? ORDER BY id ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? ORDER BY item.id DESC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
 							st.setInt(2, genderId);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						}
-					} else if (categoryId != 0) {
+					} else if (!categoryName.equals("")) {
 						if (searchWord.length() == 0) {
-							st = con.prepareStatement("SELECT * FROM item WHERE category=? ORDER BY id ASC LIMIT ?,? ");
-							st.setInt(1, categoryId);
+							st = con.prepareStatement(
+									"SELECT * FROM item inner join category on item.category = category.id WHERE category.category_name=? ORDER BY item.id DESC LIMIT ?,? ");
+							st.setString(1, categoryName);
 							st.setInt(2, startiItemNum);
 							st.setInt(3, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and category=? ORDER BY id ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=? ORDER BY item.id DESC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
-							st.setInt(2, categoryId);
+							st.setString(2, categoryName);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						}
@@ -243,65 +244,63 @@ public class MyItemDAO {
 				} else {
 					if (searchWord.length() == 0) {
 						// 全検索
-						st = con.prepareStatement("SELECT * FROM item ORDER BY id ASC LIMIT ?,? ");
+						st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id ORDER BY item.id DESC LIMIT ?,? ");
 						st.setInt(1, startiItemNum);
 						st.setInt(2, pageMaxItemCount);
 					} else {
 						// 商品名検索
-						st = con.prepareStatement("SELECT * FROM item WHERE name like ?  ORDER BY id ASC LIMIT ?,? ");
+						st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ?  ORDER BY item.id DESC LIMIT ?,? ");
 						st.setString(1, "%" + searchWord + "%");
 						st.setInt(2, startiItemNum);
 						st.setInt(3, pageMaxItemCount);
 					}
 				}
-
 				break;
 			case 1:
-				if (genderId != 2 || categoryId != 0) {
-					if (genderId != 2 && categoryId != 0) {
+				if (genderId != 2 || !categoryName.equals("")) {
+					if (genderId != 2 && !categoryName.equals("")) {
 						if (searchWord.length() == 0) {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE gender=? and category=? ORDER BY price DESC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=? ORDER BY price DESC LIMIT ?,? ");
 							st.setInt(1, genderId);
-							st.setInt(2, categoryId);
+							st.setString(2, categoryName);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and gender=? and category=?  ORDER BY price DESC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=?  ORDER BY price DESC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
 							st.setInt(2, genderId);
-							st.setInt(3, categoryId);
+							st.setString(3, categoryName);
 							st.setInt(4, startiItemNum);
 							st.setInt(5, pageMaxItemCount);
 						}
 					} else if (genderId != 2) {
 						if (searchWord.length() == 0) {
-							st = con.prepareStatement(
-									"SELECT * FROM item WHERE gender=? ORDER BY price DESC LIMIT ?,? ");
+							st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id WHERE item.gender=? ORDER BY price DESC LIMIT ?,? ");
 							st.setInt(1, genderId);
 							st.setInt(2, startiItemNum);
 							st.setInt(3, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and gender=? ORDER BY price DESC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? ORDER BY price DESC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
 							st.setInt(2, genderId);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						}
-					} else if (categoryId != 0) {
+					} else if (!categoryName.equals("")) {
 						if (searchWord.length() == 0) {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE category=? ORDER BY price DESC LIMIT ?,? ");
-							st.setInt(1, categoryId);
+									"SELECT * FROM item inner join category on item.category = category.id WHERE category.category_name=? ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, categoryName);
 							st.setInt(2, startiItemNum);
 							st.setInt(3, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and category=? ORDER BY price DESC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=? ORDER BY price DESC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
-							st.setInt(2, categoryId);
+							st.setString(2, categoryName);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						}
@@ -309,13 +308,12 @@ public class MyItemDAO {
 				} else {
 					if (searchWord.length() == 0) {
 						// 全検索
-						st = con.prepareStatement("SELECT * FROM item ORDER BY price DESC LIMIT ?,? ");
+						st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id ORDER BY price DESC LIMIT ?,? ");
 						st.setInt(1, startiItemNum);
 						st.setInt(2, pageMaxItemCount);
 					} else {
 						// 商品名検索
-						st = con.prepareStatement(
-								"SELECT * FROM item WHERE name like ?  ORDER BY price DESC LIMIT ?,? ");
+						st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ?  ORDER BY price DESC LIMIT ?,? ");
 						st.setString(1, "%" + searchWord + "%");
 						st.setInt(2, startiItemNum);
 						st.setInt(3, pageMaxItemCount);
@@ -323,51 +321,50 @@ public class MyItemDAO {
 				}
 				break;
 			case 2:
-				if (genderId != 2 || categoryId != 0) {
-					if (genderId != 2 && categoryId != 0) {
+				if (genderId != 2 || !categoryName.equals("")) {
+					if (genderId != 2 && !categoryName.equals("")) {
 						if (searchWord.length() == 0) {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE gender=? and category=? ORDER BY price ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=? ORDER BY price ASC LIMIT ?,? ");
 							st.setInt(1, genderId);
-							st.setInt(2, categoryId);
+							st.setString(2, categoryName);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and gender=? and category=?  ORDER BY price ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=?  ORDER BY price ASC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
 							st.setInt(2, genderId);
-							st.setInt(3, categoryId);
+							st.setString(3, categoryName);
 							st.setInt(4, startiItemNum);
 							st.setInt(5, pageMaxItemCount);
 						}
 					} else if (genderId != 2) {
 						if (searchWord.length() == 0) {
-							st = con.prepareStatement(
-									"SELECT * FROM item WHERE gender=? ORDER BY price ASC LIMIT ?,? ");
+							st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id WHERE item.gender=? ORDER BY price ASC LIMIT ?,? ");
 							st.setInt(1, genderId);
 							st.setInt(2, startiItemNum);
 							st.setInt(3, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and gender=? ORDER BY price ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? ORDER BY price ASC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
 							st.setInt(2, genderId);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						}
-					} else if (categoryId != 0) {
+					} else if (!categoryName.equals("")) {
 						if (searchWord.length() == 0) {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE category=? ORDER BY price ASC LIMIT ?,? ");
-							st.setInt(1, categoryId);
+									"SELECT * FROM item inner join category on item.category = category.id WHERE category.category_name=? ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, categoryName);
 							st.setInt(2, startiItemNum);
 							st.setInt(3, pageMaxItemCount);
 						} else {
 							st = con.prepareStatement(
-									"SELECT * FROM item WHERE name like ? and category=? ORDER BY price ASC LIMIT ?,? ");
+									"SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=? ORDER BY price ASC LIMIT ?,? ");
 							st.setString(1, "%" + searchWord + "%");
-							st.setInt(2, categoryId);
+							st.setString(2, categoryName);
 							st.setInt(3, startiItemNum);
 							st.setInt(4, pageMaxItemCount);
 						}
@@ -375,20 +372,17 @@ public class MyItemDAO {
 				} else {
 					if (searchWord.length() == 0) {
 						// 全検索
-						st = con.prepareStatement("SELECT * FROM item ORDER BY price ASC LIMIT ?,? ");
+						st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id ORDER BY price ASC LIMIT ?,? ");
 						st.setInt(1, startiItemNum);
 						st.setInt(2, pageMaxItemCount);
 					} else {
 						// 商品名検索
-						st = con.prepareStatement(
-								"SELECT * FROM item WHERE name like ?  ORDER BY price ASC LIMIT ?,? ");
+						st = con.prepareStatement("SELECT * FROM item inner join category on item.category = category.id WHERE item.name like ?  ORDER BY price ASC LIMIT ?,? ");
 						st.setString(1, "%" + searchWord + "%");
 						st.setInt(2, startiItemNum);
 						st.setInt(3, pageMaxItemCount);
 					}
 				}
-				break;
-			default:
 				break;
 			}
 			ResultSet rs = st.executeQuery();
@@ -400,9 +394,313 @@ public class MyItemDAO {
 				item.setName(rs.getString("name"));
 				item.setGender(rs.getInt("gender"));
 				item.setCategoryId(rs.getInt("category"));
+				item.setCategory(rs.getString("category_name"));
 				item.setDetail(rs.getString("item_detail"));
 				item.setPrice(rs.getInt("price"));
 				item.setFileName(rs.getString("image") != null ? rs.getString("image") : "fuku_tatamu.png");
+				itemList.add(item);
+			}
+			System.out.println("get Items by itemName has been completed");
+			return itemList;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
+	public ArrayList<MyItemDataBeans> MgetItems(String searchWord, int genderId, int sortId, String categoryName,
+			int page,
+			int pageMaxItemCount)
+			throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			int startiItemNum = (page - 1) * pageMaxItemCount;
+			con = MyDBManager.getConnection();
+			switch (sortId) {
+			case 0:
+				if (genderId != 2 || !categoryName.equals("")) {
+					if (genderId != 2 && !categoryName.equals("")) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=? ORDER BY id ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=? ORDER BY id ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setString(3, categoryName);
+							st.setInt(4, startiItemNum);
+							st.setInt(5, pageMaxItemCount);
+						}
+					} else if (genderId != 2) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? ORDER BY id ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? ORDER BY id ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					} else if (categoryName.length() != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE category.category_name=? ORDER BY id ASC LIMIT ?,? ");
+							st.setString(1, categoryName);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=? ORDER BY id ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					}
+				} else {
+					if (searchWord.length() == 0) {
+						// 全検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id ORDER BY id ASC LIMIT ?,? ");
+						st.setInt(1, startiItemNum);
+						st.setInt(2, pageMaxItemCount);
+					} else {
+						// 商品名検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? ORDER BY id ASC LIMIT ?,? ");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, startiItemNum);
+						st.setInt(3, pageMaxItemCount);
+					}
+				}
+				break;
+			case 1:
+				if (genderId != 2 || !categoryName.equals("")) {
+					if (genderId != 2 && !categoryName.equals("")) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=? ORDER BY id DESC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=? ORDER BY id DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setString(3, categoryName);
+							st.setInt(4, startiItemNum);
+							st.setInt(5, pageMaxItemCount);
+						}
+					} else if (genderId != 2) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? ORDER BY id DESC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? ORDER BY id DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					} else if (categoryName.length() != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE category.category_name=? ORDER BY id DESC LIMIT ?,? ");
+							st.setString(1, categoryName);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=? ORDER BY id DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					}
+				} else {
+					if (searchWord.length() == 0) {
+						// 全検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id ORDER BY id DESC LIMIT ?,? ");
+						st.setInt(1, startiItemNum);
+						st.setInt(2, pageMaxItemCount);
+					} else {
+						// 商品名検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? ORDER BY id DESC LIMIT ?,? ");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, startiItemNum);
+						st.setInt(3, pageMaxItemCount);
+					}
+				}
+				break;
+			case 2:
+				if (genderId != 2 || !categoryName.equals("")) {
+					if (genderId != 2 && !categoryName.equals("")) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=? ORDER BY price DESC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=? ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setString(3, categoryName);
+							st.setInt(4, startiItemNum);
+							st.setInt(5, pageMaxItemCount);
+						}
+					} else if (genderId != 2) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? ORDER BY price DESC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					} else if (categoryName.length() != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE category.category_name=? ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, categoryName);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=? ORDER BY price DESC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					}
+				} else {
+					if (searchWord.length() == 0) {
+						// 全検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id ORDER BY price DESC LIMIT ?,? ");
+						st.setInt(1, startiItemNum);
+						st.setInt(2, pageMaxItemCount);
+					} else {
+						// 商品名検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? ORDER BY price DESC LIMIT ?,? ");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, startiItemNum);
+						st.setInt(3, pageMaxItemCount);
+					}
+				}
+				break;
+			case 3:
+				if (genderId != 2 || !categoryName.equals("")) {
+					if (genderId != 2 && !categoryName.equals("")) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=? ORDER BY price ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=? ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setString(3, categoryName);
+							st.setInt(4, startiItemNum);
+							st.setInt(5, pageMaxItemCount);
+						}
+					} else if (genderId != 2) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.gender=? ORDER BY price ASC LIMIT ?,? ");
+							st.setInt(1, genderId);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setInt(2, genderId);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					} else if (categoryName.length() != 0) {
+						if (searchWord.length() == 0) {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE category.category_name=? ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, categoryName);
+							st.setInt(2, startiItemNum);
+							st.setInt(3, pageMaxItemCount);
+						} else {
+							st = con.prepareStatement(
+									"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=? ORDER BY price ASC LIMIT ?,? ");
+							st.setString(1, "%" + searchWord + "%");
+							st.setString(2, categoryName);
+							st.setInt(3, startiItemNum);
+							st.setInt(4, pageMaxItemCount);
+						}
+					}
+				} else {
+					if (searchWord.length() == 0) {
+						// 全検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id ORDER BY price ASC LIMIT ?,? ");
+						st.setInt(1, startiItemNum);
+						st.setInt(2, pageMaxItemCount);
+					} else {
+						// 商品名検索
+						st = con.prepareStatement(
+								"SELECT item.id, item.category, item.name, item.gender, category.category_name, item.price FROM item inner join category on item.category = category.id WHERE item.name like ? ORDER BY price ASC LIMIT ?,? ");
+						st.setString(1, "%" + searchWord + "%");
+						st.setInt(2, startiItemNum);
+						st.setInt(3, pageMaxItemCount);
+					}
+				}
+				break;
+			}
+			ResultSet rs = st.executeQuery();
+			ArrayList<MyItemDataBeans> itemList = new ArrayList<MyItemDataBeans>();
+			while (rs.next()) {
+				MyItemDataBeans item = new MyItemDataBeans();
+				item.setId(rs.getInt("id"));
+				item.setGender(rs.getInt("gender"));
+				item.setCategory(rs.getString("category_name"));
+				item.setCategoryId(rs.getInt("category"));
+				item.setName(rs.getString("name"));
+				item.setPrice(rs.getInt("price"));
 				itemList.add(item);
 			}
 			System.out.println("get Items by itemName has been completed");
@@ -463,44 +761,46 @@ public class MyItemDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static double getItemCount(String searchWord, int categoryId, int genderId) throws SQLException {
+	public static double getItemCount(String searchWord, String categoryName, int genderId) throws SQLException {
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
 			con = MyDBManager.getConnection();
-			if (genderId != 2 || categoryId != 0) {
-				if (genderId != 2 && categoryId != 0) {
+			if (genderId != 2 || !categoryName.equals("")) {
+				if (genderId != 2 && !categoryName.equals("")) {
 					if (searchWord.length() == 0) {
 						st = con.prepareStatement(
-								"SELECT count(*) as cnt FROM item WHERE gender=? and category=?");
+								"SELECT count(*) as cnt FROM item inner join category on item.category = category.id WHERE item.gender=? and category.category_name=?");
 						st.setInt(1, genderId);
-						st.setInt(2, categoryId);
+						st.setString(2, categoryName);
 					} else {
 						st = con.prepareStatement(
-								"SELECT count(*) as cnt FROM item WHERE name like ? and gender=? and category=?");
+								"SELECT count(*) as cnt FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=? and category.category_name=?");
 						st.setString(1, "%" + searchWord + "%");
 						st.setInt(2, genderId);
-						st.setInt(3, categoryId);
+						st.setString(3, categoryName);
 					}
 				} else if (genderId != 2) {
 					if (searchWord.length() == 0) {
-						st = con.prepareStatement("SELECT count(*) as cnt FROM item WHERE gender=?");
+						st = con.prepareStatement(
+								"SELECT count(*) as cnt FROM item inner join category on item.category = category.id WHERE item.gender=?");
 						st.setInt(1, genderId);
 					} else {
 						st = con.prepareStatement(
-								"SELECT count(*) as cnt FROM item WHERE name like ? and gender=?");
+								"SELECT count(*) as cnt FROM item inner join category on item.category = category.id WHERE item.name like ? and item.gender=?");
 						st.setString(1, "%" + searchWord + "%");
 						st.setInt(2, genderId);
 					}
-				} else if (categoryId != 0) {
+				} else if (!categoryName.equals("")) {
 					if (searchWord.length() == 0) {
-						st = con.prepareStatement("SELECT count(*) as cnt FROM item WHERE category=?");
-						st.setInt(1, categoryId);
+						st = con.prepareStatement(
+								"SELECT count(*) as cnt FROM item inner join category on item.category = category.id WHERE category.category_name=?");
+						st.setString(1, categoryName);
 					} else {
 						st = con.prepareStatement(
-								"SELECT count(*) as cnt FROM item WHERE name like ? and category=?");
+								"SELECT count(*) as cnt FROM item inner join category on item.category = category.id WHERE item.name like ? and category.category_name=?");
 						st.setString(1, "%" + searchWord + "%");
-						st.setInt(2, categoryId);
+						st.setString(2, categoryName);
 					}
 				}
 			} else {

@@ -43,8 +43,6 @@ public class EcHelper {
 	static final String M_ITEM_UPDATE = "masterItemUpdate.jsp";
 	// ログイン
 	static final String LOGIN_PAGE = "/login.jsp";
-	// ログアウト
-	static final String LOGOUT_PAGE = "/logout.jsp";
 	// 新規登録
 	static final String NEW_USER = "/newUser.jsp";
 	// 新規登録入力内容確認

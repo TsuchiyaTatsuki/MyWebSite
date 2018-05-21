@@ -37,14 +37,21 @@
 						</c:choose>
 					</div>
 					<div class="col-sm-8 align-self-end">
-					<c:if test="${errorMesse != null }">
-					<p class="text-danger">${errorMesse }</p>
-					</c:if>
+						<c:if test="${errorMesse != null }">
+							<p class="text-danger">${errorMesse }</p>
+						</c:if>
 						<div class="input-group mb-3">
 							<div class="custom-file">
 								<input name="file" type="file" class="custom-file-input"
 									id="file"> <label class="custom-file-label"
-									for="inputGroupFile01"></label>
+									for="inputGroupFile01"><c:choose>
+										<c:when test="${fileName != null }">
+								${fileName }
+							</c:when>
+										<c:otherwise>
+								${idb.fileName }
+							</c:otherwise>
+									</c:choose></label>
 							</div>
 							<div class="input-group-append">
 								<input class="btn btn-outline-secondary" type="submit"
@@ -62,23 +69,24 @@
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlSelect1">性別</label>
-					<c:choose>
+				<c:choose>
 					<c:when test="${idb.gender == 0 }">
-					<input class="form-control" id="gender" placeholder="メンズ" readonly>
-					<input class="form-control" type="hidden" name="gender" value="0">
+						<input class="form-control" id="gender" placeholder="メンズ" readonly>
+						<input class="form-control" type="hidden" name="gender" value="0">
 					</c:when>
 					<c:when test="${idb.gender == 1 }">
-					<input class="form-control" id="gender" placeholder="レディース" readonly>
-					<input class="form-control" type="hidden" name="gender" value="1">
+						<input class="form-control" id="gender" placeholder="レディース"
+							readonly>
+						<input class="form-control" type="hidden" name="gender" value="1">
 					</c:when>
-					</c:choose>
+				</c:choose>
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlSelect1">カテゴリ</label> <select
 					name="category" class="form-control" id="exampleFormControlSelect1">
 					<option value="${idb.categoryId }">${idb.category }</option>
 					<c:forEach var="gcate" items="${cateList}">
-					<option value="${gcate.id }">${gcate.name }</option>
+						<option value="${gcate.id }">${gcate.name }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -98,8 +106,10 @@
 					<input type="hidden" name="fileName" value="${idb.fileName }">
 				</c:otherwise>
 			</c:choose>
-			<div align="center">
-				<button type="submit" class="btn btn-primary">更新する</button>
+			<div class="row justify-content-md-center" style="padding-top: 2rem;">
+				<div class="col col-lg-4">
+					<button type="submit" class="btn btn-primary btn-block">更新する</button>
+				</div>
 			</div>
 		</form>
 		<!-- 商品情報更新フォーム -->

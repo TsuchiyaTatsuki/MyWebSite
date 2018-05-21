@@ -36,21 +36,11 @@ public class Top extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
-			if(session.getAttribute("searchWord") != null) {
-				session.removeAttribute("searchWord");
-			}
-			if(session.getAttribute("genderId") != null) {
-				session.removeAttribute("genderId");
-			}
-			if(session.getAttribute("categoryId") != null) {
-				session.removeAttribute("categoryId");
-			}
-			if(session.getAttribute("category") != null) {
-				session.removeAttribute("category");
-			}
-			if(session.getAttribute("sortId") != null) {
-				session.removeAttribute("sortId");
-			}
+			session.removeAttribute("searchWord");
+			session.removeAttribute("genderId");
+			session.removeAttribute("categoryName");
+			session.removeAttribute("category");
+			session.removeAttribute("sortId");
 
 			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(2);
 			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(12, 2);

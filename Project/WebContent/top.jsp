@@ -15,160 +15,115 @@
 		<!-- サイドメニュー -->
 		<div class="col-sm-3">
 			<div class="list-group list-group-flush">
-				<c:choose>
-					<c:when test="${genderId == 2 || genderId == null}">
-						<li class="list-group-item" style="padding-top: 40px;">
-							<h5>
-								<strong>メンズ</strong>
-							</h5>
-						</li>
-						<c:forEach var="gcate" items="${cateList }">
-							<c:if test="${gcate.gender == 0 }">
-								<a href="ItemSearchResult?categoryId=${gcate.id }"
-									class="list-group-item list-group-item-action">${gcate.name }</a>
-							</c:if>
-						</c:forEach>
-						<li class="list-group-item" style="padding-top: 40px;">
-							<h5>
-								<strong>レディース</strong>
-							</h5>
-						</li>
-						<c:forEach var="gcate" items="${cateList }">
-							<c:if test="${gcate.gender == 1 }">
-								<a href="ItemSearchResult?categoryId=${gcate.id }"
-									class="list-group-item list-group-item-action">${gcate.name }</a>
-							</c:if>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<li class="list-group-item" style="padding-top: 40px;">
-							<h5>
-								<strong>カテゴリ</strong>
-							</h5>
-						</li>
-						<c:forEach var="gcate" items="${cateList }">
-							<a href="ItemSearchResult?categoryId=${gcate.id }"
-								class="list-group-item list-group-item-action">${gcate.name }</a>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
+				<li class="list-group-item" style="padding-top: 40px;">
+					<h5>
+						<strong>カテゴリ</strong>
+					</h5>
+				</li>
+				<c:forEach var="gcate" items="${cateList }">
+					<a href="ItemSearchResult?categoryName=${gcate.name }"
+						class="list-group-item list-group-item-action">${gcate.name }</a>
+				</c:forEach>
 			</div>
 		</div>
 		<!-- サイドメニュー -->
-
 		<!-- メインコンテンツ -->
 		<div class="col-md-9" style="padding-top: 25px;">
-
 			<!-- スライダー -->
 			<c:choose>
-			<c:when test="${genderId == null || genderId == 2 }">
-			<div id="carouselExampleFade" class="carousel slide carousel-fade"
-				data-ride="carousel" style="padding-bottom: 20px">
-				<div class="carousel-inner" style="height: 340px;">
-					<div class="carousel-item active">
-						<a
-							href="ItemSearchResult?categoryId=1"><img
-							class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
-							alt="First slide"></a>
+				<c:when test="${genderId == null || genderId == 2 }">
+					<div id="carouselExampleFade" class="carousel slide carousel-fade"
+						data-ride="carousel" style="padding-bottom: 20px" data-interval="4000">
+						<div class="carousel-inner" style="height: 340px;">
+							<div class="carousel-item active">
+								<a href="ItemSearchResult?categoryName=トップス"><img
+									class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
+									alt="First slide"></a>
+							</div>
+							<div class="carousel-item">
+								<a href="ItemSearchResult?categoryName=パンツ"><img
+									class="d-block w-100" src="img/gahag-0006435869-1.jpg"
+									alt="Second slide"></a>
+							</div>
+							<div class="carousel-item">
+								<a href="ItemSearchResult?categoryName=トップス"><img
+									class="d-block w-100" src="img/tops.jpg" alt="Third slide"></a>
+							</div>
+							<div class="carousel-item">
+								<a href="ItemSearchResult?categoryName=パンツ"><img
+									class="d-block w-100" src="img/pants.jpg" alt="fourth slide"></a>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleFade"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next" href="#carouselExampleFade"
+							role="button" data-slide="next"> <span
+							class="carousel-control-next-icon" aria-hidden="true"></span> <span
+							class="sr-only">Next</span>
+						</a>
 					</div>
-					<div class="carousel-item">
-						<a
-							href="ItemSearchResult?categoryId=3"><img
-							class="d-block w-100" src="img/gahag-0006435869-1.jpg"
-							alt="Second slide"></a>
+				</c:when>
+				<c:when test="${genderId == 0 }">
+					<div id="carouselExampleFade" class="carousel slide carousel-fade"
+						data-ride="carousel" style="padding-bottom: 20px">
+						<div class="carousel-inner" style="height: 340px;">
+							<div class="carousel-item active">
+								<a href="ItemSearchResult?categoryName=トップス"><img
+									class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
+									alt="First slide"></a>
+							</div>
+							<div class="carousel-item">
+								<a href="ItemSearchResult?categoryName=パンツ"><img
+									class="d-block w-100" src="img/gahag-0006435869-1.jpg"
+									alt="Second slide"></a>
+							</div>
+							<div class="carousel-item">
+								<a href="ItemSearchResult?categoryName=シューズ"><img
+									class="d-block w-100" src="img/shoes.jpg" alt="Third slide"></a>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleFade"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next" href="#carouselExampleFade"
+							role="button" data-slide="next"> <span
+							class="carousel-control-next-icon" aria-hidden="true"></span> <span
+							class="sr-only">Next</span>
+						</a>
 					</div>
-					<div class="carousel-item">
-						<a
-							href="ItemSearchResult?categoryId=8"><img
-							class="d-block w-100" src="img/tops.jpg"
-							alt="Third slide"></a>
+				</c:when>
+				<c:when test="${genderId == 1 }">
+					<div id="carouselExampleFade" class="carousel slide carousel-fade"
+						data-ride="carousel" style="padding-bottom: 20px">
+						<div class="carousel-inner" style="height: 340px;">
+							<div class="carousel-item active">
+								<a href="ItemSearchResult?categoryName=トップス"><img
+									class="d-block w-100" src="img/tops.jpg" alt="First slide"></a>
+							</div>
+							<div class="carousel-item">
+								<a href="ItemSearchResult?categoryName=アウター"><img
+									class="d-block w-100" src="img/pants.jpg" alt="Second slide"></a>
+							</div>
+							<div class="carousel-item">
+								<a href="ItemSearchResult?categoryName=ワンピース"><img
+									class="d-block w-100" src="img/Kazukihiro18117018.jpg"
+									alt="Third slide"></a>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleFade"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next" href="#carouselExampleFade"
+							role="button" data-slide="next"> <span
+							class="carousel-control-next-icon" aria-hidden="true"></span> <span
+							class="sr-only">Next</span>
+						</a>
 					</div>
-					<div class="carousel-item">
-						<a
-							href="ItemSearchResult?categoryId=10"><img
-							class="d-block w-100" src="img/pants.jpg"
-							alt="fourth slide"></a>
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleFade"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="carousel-control-next" href="#carouselExampleFade"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only">Next</span>
-				</a>
-			</div>
-			</c:when>
-			<c:when test="${genderId == 0 }">
-			<div id="carouselExampleFade" class="carousel slide carousel-fade"
-				data-ride="carousel" style="padding-bottom: 20px">
-				<div class="carousel-inner" style="height: 340px;">
-					<div class="carousel-item active">
-						<a
-							href="ItemSearchResult?categoryId=1"><img
-							class="d-block w-100" src="img/publicdomainq-0018423cpl.jpg"
-							alt="First slide"></a>
-					</div>
-					<div class="carousel-item">
-						<a
-							href="ItemSearchResult?categoryId=3"><img
-							class="d-block w-100" src="img/gahag-0006435869-1.jpg"
-							alt="Second slide"></a>
-					</div>
-					<div class="carousel-item">
-						<a
-							href="ItemSearchResult?categoryId=5"><img
-							class="d-block w-100" src="img/shoes.jpg"
-							alt="Third slide"></a>
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleFade"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="carousel-control-next" href="#carouselExampleFade"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only">Next</span>
-				</a>
-			</div>
-			</c:when>
-			<c:when test="${genderId == 1 }">
-			<div id="carouselExampleFade" class="carousel slide carousel-fade"
-				data-ride="carousel" style="padding-bottom: 20px">
-				<div class="carousel-inner" style="height: 340px;">
-					<div class="carousel-item active">
-						<a
-							href="ItemSearchResult?categoryId=8"><img
-							class="d-block w-100" src="img/tops.jpg"
-							alt="First slide"></a>
-					</div>
-					<div class="carousel-item">
-						<a
-							href="ItemSearchResult?categoryId=9"><img
-							class="d-block w-100" src="img/pants.jpg"
-							alt="Second slide"></a>
-					</div>
-					<div class="carousel-item">
-						<a
-							href="ItemSearchResult?categoryId=12"><img
-							class="d-block w-100" src="img/Kazukihiro18117018.jpg"
-							alt="Third slide"></a>
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleFade"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="carousel-control-next" href="#carouselExampleFade"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only">Next</span>
-				</a>
-			</div>
-			</c:when>
+				</c:when>
 			</c:choose>
 			<!-- スライダー -->
 			<div class="row" style="padding: 10px;">

@@ -259,15 +259,15 @@ insert into ecproject.item(id,name,gender,category,item_detail,price,image) valu
 ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',6000,'キャプチャ4.PNG');
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (40,'シューズ6',0,5,'1917年に生産されて以来、長きにわたって履かれ続けている「キャンバス オールスター」。
 ベーシックなカラーリングで幅広いスタイルにあわせやすいアイテム。',6000,'キャプチャ4.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (41,'サングラス',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1200,'キャプチャ5.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (42,'サングラス1',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1400,'キャプチャ5.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (43,'サングラス2',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1700,'キャプチャ5.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (44,'サングラス3',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',2200,'キャプチャ5.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (45,'サングラス4',0,6,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1500,'キャプチャ5.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (46,'バッグ',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',9700,'キャプチャ6.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (47,'バッグ2',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',5800,'キャプチャ6.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (48,'バッグ3',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',7200,'キャプチャ6.PNG');
-insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (49,'バッグ4',0,6,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',9300,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (41,'サングラス',0,15,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1200,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (42,'サングラス1',0,15,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1400,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (43,'サングラス2',0,15,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1700,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (44,'サングラス3',0,15,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',2200,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (45,'サングラス4',0,15,'少しレトロな雰囲気がお洒落な人気のサングラス&黒ぶちメガネ！',1500,'キャプチャ5.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (46,'バッグ',0,15,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',9700,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (47,'バッグ2',0,15,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',5800,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (48,'バッグ3',0,15,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',7200,'キャプチャ6.PNG');
+insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (49,'バッグ4',0,15,'トートバッグの中で断トツ人気なしっかりとした厚みの牛床革を使用しており、エンボス風を表現した深みのある質感、経年変化を楽しめるレザーを採用。',9300,'キャプチャ6.PNG');
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (50,'トップス',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',2200,'キャプチャ7.PNG');
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (51,'トップス',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',2300,'キャプチャ7.PNG');
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (52,'トップス2',1,8,'無地でデイリーユースにピッタリなChampion(チャンピオン)のシンプルT',3500,'キャプチャ7.PNG');
@@ -321,4 +321,29 @@ insert into ecproject.item(id,name,gender,category,item_detail,price,image) valu
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (94,'リュック3',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',5600,'キャプチャ14.PNG');
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (95,'リュック4',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',6000,'キャプチャ14.PNG');
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (96,'リュック5',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',5900,'キャプチャ14.PNG');
+
+SELECT
+  item.id
+  , item.category
+  , item.name
+  , item.gender
+  , category.category_name
+  , item.price 
+FROM
+  item 
+  inner join category 
+    on item.category = category.id 
+WHERE
+  item.gender = 0 
+  and item.category = 1 
+ORDER BY
+  id DESC 
+LIMIT
+  0 , 5; 
+
+select * from category WHERE category_name='その他'
+SELECT * FROM category GROUP BY category_name ORDER BY id ASC
+
+
+
 

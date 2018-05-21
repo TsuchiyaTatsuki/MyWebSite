@@ -40,14 +40,21 @@
 						</c:choose>
 					</div>
 					<div class="col-sm-8 align-self-end">
-					<c:if test="${errorMesse != null }">
-					<p class="text-danger">${errorMesse }</p>
-					</c:if>
+						<c:if test="${errorMesse != null }">
+							<p class="text-danger">${errorMesse }</p>
+						</c:if>
 						<div class="input-group mb-3">
 							<div class="custom-file">
 								<input name="file" type="file" class="custom-file-input"
 									id="file"> <label class="custom-file-label"
-									for="inputGroupFile01"></label>
+									for="inputGroupFile01"><c:choose>
+										<c:when test="${fileName != null }">
+								${fileName }
+							</c:when>
+										<c:when test="${newItem.fileName != null }">
+								${newItem.fileName }
+							</c:when>
+									</c:choose></label>
 							</div>
 							<div class="input-group-append">
 								<input type="hidden" name="newItem" value="1"> <input
@@ -124,8 +131,8 @@
 					<input type="hidden" name="fileName" value="0">
 				</c:otherwise>
 			</c:choose>
-			<div class="row justify-content-md-center">
-				<div class="col col-lg-6">
+			<div class="row justify-content-md-center" style="padding-top: 2rem;">
+				<div class="col col-lg-4">
 					<button type="submit" class="btn btn-primary btn-block">登録</button>
 				</div>
 			</div>

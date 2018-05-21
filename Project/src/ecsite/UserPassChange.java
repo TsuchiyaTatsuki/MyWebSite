@@ -33,9 +33,22 @@ public class UserPassChange extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher(EcHelper.USER_PASS_CHANGE).forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		try {
+			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+			if (lud == null) {
+				session.setAttribute("returnStrUrl", "UserPassChange");
+				response.sendRedirect("Login");
+			} else {
+			request.getRequestDispatcher(EcHelper.USER_PASS_CHANGE).forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMessage", e.toString());
+			response.sendRedirect("Error");
+		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -49,6 +62,7 @@ public class UserPassChange extends HttpServlet {
 		try {
 			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
 			if (lud == null) {
+				session.setAttribute("returnStrUrl", "UserPassChange");
 				response.sendRedirect("Login");
 			} else {
 				MyUserDataBeans udb = MyUserDAO.getUserDataBeansByUserId(lud.getId());

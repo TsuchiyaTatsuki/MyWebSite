@@ -12,8 +12,7 @@
 	<jsp:include page="/baselayout/header.jsp" />
 	<nav aria-label="breadcrumb" style="padding-top: 10px;">
 		<ol class="breadcrumb bg-white">
-			<li class="breadcrumb-item"><a
-				href="Top">Home</a></li>
+			<li class="breadcrumb-item"><a href="Top">Home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">検索結果</li>
 		</ol>
 	</nav>
@@ -52,6 +51,7 @@
 						<c:when test="${genderId == 0 }">
 							<a
 								class="list-group-item list-group-item-action list-group-item-secondary">メンズ
+
 								<button name="close" type="submit" class="close"
 									aria-label="Close" value="genderClose">
 									<span aria-hidden="true">&times;</span>
@@ -72,102 +72,52 @@
 							</a>
 						</c:when>
 					</c:choose>
-					<c:choose>
-						<c:when test="${genderId == 2 }">
-							<li class="list-group-item list-group-item-secondary"
-								style="padding-top: 40px;"><h5>
-									<strong>メンズ</strong>
-								</h5></li>
-							<c:forEach var="gcate" items="${cateList }">
-								<c:if test="${gcate.gender == 0 }">
-									<c:choose>
-										<c:when test="${categoryId == gcate.id }">
-											<a
-												class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }<button
-													name="close" type="submit" class="close" aria-label="Close"
-													value="categoryClose">
-													<span aria-hidden="true">&times;</span>
-												</button></a>
-										</c:when>
-										<c:otherwise>
-											<a href="ItemSearchResult?categoryId=${gcate.id }"
-												class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }</a>
-										</c:otherwise>
-									</c:choose>
-								</c:if>
-							</c:forEach>
-							<li class="list-group-item list-group-item-secondary"
-								style="padding-top: 40px;"><h5>
-									<strong>レディース</strong>
-								</h5></li>
-							<c:forEach var="gcate" items="${cateList }">
-								<c:if test="${gcate.gender == 1 }">
-									<c:choose>
-										<c:when test="${categoryId == gcate.id }">
-											<a
-												class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }<button
-													name="close" type="submit" class="close" aria-label="Close"
-													value="categoryClose">
-													<span aria-hidden="true">&times;</span>
-												</button></a>
-										</c:when>
-										<c:otherwise>
-											<a href="ItemSearchResult?categoryId=${gcate.id }"
-												class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }</a>
-										</c:otherwise>
-									</c:choose>
-								</c:if>
-							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<li class="list-group-item list-group-item-secondary"
-								style="padding-top: 40px;"><h5>
-									<strong>カテゴリ</strong>
-								</h5></li>
-							<c:forEach var="gcate" items="${cateList }" varStatus="status">
-								<c:choose>
-									<c:when test="${categoryId == gcate.id }">
-										<a
-											class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }<button
-												name="close" type="submit" class="close" aria-label="Close"
-												value="categoryClose">
-												<span aria-hidden="true">&times;</span>
-											</button></a>
-									</c:when>
-									<c:otherwise>
-										<a href="ItemSearchResult?categoryId=${gcate.id }"
-											class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-
+					<li class="list-group-item list-group-item-secondary"
+						style="padding-top: 40px;"><h5>
+							<strong>カテゴリ</strong>
+						</h5></li>
+					<c:forEach var="gcate" items="${cateList }" varStatus="status">
+						<c:choose>
+							<c:when test="${categoryName == gcate.name }">
+								<a
+									class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }<button
+										name="close" type="submit" class="close" aria-label="Close"
+										value="categoryClose">
+										<span aria-hidden="true">&times;</span>
+									</button></a>
+							</c:when>
+							<c:otherwise>
+								<a href="ItemSearchResult?categoryName=${gcate.name }"
+									class="list-group-item list-group-item-action list-group-item-secondary">${gcate.name }</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 				</form>
 			</div>
 		</div>
 		<!-- サイドメニュー -->
 		<!-- 商品一覧 -->
 		<div class="col-sm-9">
-			<h4 style="padding-bottom: 20px;">
-				<c:choose>
-					<c:when test="${genderId == 0 }">
-			メンズ:
-			</c:when>
-					<c:when test="${genderId == 1 }">
-			レディース:
-			</c:when>
-				</c:choose>
-				<c:if test="${category != null }">${category.categoryName }: </c:if>
-				<c:choose>
-					<c:when test="${searchWord.equals(\"\")}">
-				"全て"
-				</c:when>
-					<c:otherwise>
-				"${searchWord }"
-				</c:otherwise>
-				</c:choose>
-			</h4>
+			<form action="ItemSearchResult" method="POST">
+				<h4 style="padding-bottom: 20px;">
+					<c:if
+						test="${genderId != 2 || !searchWord.equals(\"\") || !categoryName.equals(\"\") }">
+						<button name="close" type="submit" class="close"
+							aria-label="Close" value="allClose">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</c:if>
+					<c:choose>
+						<c:when test="${genderId == 0 }">メンズ:</c:when>
+						<c:when test="${genderId == 1 }">レディース:</c:when>
+					</c:choose>
+					<c:if test="${!categoryName.equals(\"\") }">${categoryName }: </c:if>
+					<c:choose>
+						<c:when test="${searchWord.equals(\"\")}">"全て"</c:when>
+						<c:otherwise>"${searchWord }"</c:otherwise>
+					</c:choose>
+				</h4>
+			</form>
 			<c:choose>
 				<c:when test="${sortId == null || sortId == 0 }">
 					<ul class="nav nav-tabs">
@@ -216,36 +166,46 @@
 				</c:forEach>
 				<!-- 商品カード -->
 			</div>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-end">
-					<c:choose>
-						<c:when test="${page == null || page == 1 }">
-							<li class="page-item disabled"><a class="page-link border-0"><i
-									class="fas fa-angle-left"></i></a></li>
-						</c:when>
-						<c:otherwise>
+			<c:if test="${itemList.size() == 0 }">
+				<div class="row justify-content-md-center"
+					style="padding-top: 3rem; padding-bottom: 3rem;">
+					<div class="col align-self-center">
+						<h5 class="text-center">検索条件に当てはまる商品が見つかりません。</h5>
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${itemList.size() != 0 }">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-end">
+						<c:choose>
+							<c:when test="${page == null || page == 1 }">
+								<li class="page-item disabled"><a
+									class="page-link border-0"><i class="fas fa-angle-left"></i></a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link border-0"
+									href="ItemSearchResult?page=${page - 1 }"><i
+										class="fas fa-angle-left"></i></a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:forEach var="i" begin="1" end="${pageMax }" step="1">
 							<li class="page-item"><a class="page-link border-0"
-								href="ItemSearchResult?page=${page - 1 }"><i
-									class="fas fa-angle-left"></i></a></li>
-						</c:otherwise>
-					</c:choose>
-					<c:forEach var="i" begin="1" end="${pageMax }" step="1">
-						<li class="page-item"><a class="page-link border-0"
-							href="ItemSearchResult?page=${i }">${i }</a></li>
-					</c:forEach>
-					<c:choose>
-						<c:when test="${pageMax == page }">
-							<li class="page-item disabled"><a class="page-link border-0"><i
-									class="fas fa-angle-right"></i></a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item"><a class="page-link border-0"
-								href="ItemSearchResult?page=${page + 1 }"><i
-									class="fas fa-angle-right"></i></a></li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</nav>
+								href="ItemSearchResult?page=${i }">${i }</a></li>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${pageMax == page }">
+								<li class="page-item disabled"><a
+									class="page-link border-0"><i class="fas fa-angle-right"></i></a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link border-0"
+									href="ItemSearchResult?page=${page + 1 }"><i
+										class="fas fa-angle-right"></i></a></li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</nav>
+			</c:if>
 		</div>
 		<!-- 商品一覧 -->
 	</div>
