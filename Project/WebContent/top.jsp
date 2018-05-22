@@ -14,16 +14,20 @@
 	<div class="row">
 		<!-- サイドメニュー -->
 		<div class="col-sm-3">
-			<div class="list-group list-group-flush">
-				<li class="list-group-item" style="padding-top: 40px;">
-					<h5>
-						<strong>カテゴリ</strong>
-					</h5>
-				</li>
-				<c:forEach var="gcate" items="${cateList }">
-					<a href="ItemSearchResult?categoryName=${gcate.name }"
-						class="list-group-item list-group-item-action">${gcate.name }</a>
-				</c:forEach>
+			<div id="sidebar">
+				<div class="sidebar__inner">
+					<div class="list-group list-group-flush" style="padding-top: 2rem;">
+						<li class="list-group-item">
+							<h5>
+								<strong>カテゴリ</strong>
+							</h5>
+						</li>
+						<c:forEach var="gcate" items="${cateList }">
+							<a href="ItemSearchResult?categoryName=${gcate.name }"
+								class="list-group-item list-group-item-action">${gcate.name }</a>
+						</c:forEach>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- サイドメニュー -->
@@ -33,7 +37,8 @@
 			<c:choose>
 				<c:when test="${genderId == null || genderId == 2 }">
 					<div id="carouselExampleFade" class="carousel slide carousel-fade"
-						data-ride="carousel" style="padding-bottom: 20px" data-interval="4000">
+						data-ride="carousel" style="padding-bottom: 20px"
+						data-interval="4000">
 						<div class="carousel-inner" style="height: 340px;">
 							<div class="carousel-item active">
 								<a href="ItemSearchResult?categoryName=トップス"><img
@@ -126,20 +131,76 @@
 				</c:when>
 			</c:choose>
 			<!-- スライダー -->
-			<div class="row" style="padding: 10px;">
-				<!-- 商品カード -->
-				<c:forEach var="item" items="${itemList}">
-					<div class="col-3">
-						<div class="card" style="width: 10rem; border: none;">
-							<a href="Item?itemId=${item.id }"><img class="card-img-top"
-								src="img/${item.fileName }" style="height: 10rem;"></a>
-							<div class="card-body">
-								<p class="card-text">${item.name }<br>${item.formatPrice }</p>
+			<div style="padding: 10px;">
+				<c:choose>
+					<c:when test="${genderId == null || genderId == 2 }">
+						<h5>ランキング</h5>
+						<hr class="my-4">
+						<h5>メンズ</h5>
+						<div class="row">
+							<c:forEach var="item" items="${rankGender0}">
+								<div class="col-3">
+									<div class="card" style="width: 10rem; border: none;">
+										<a href="Item?itemId=${item.id }"><img
+											class="card-img-top" src="img/${item.fileName }"
+											style="height: 10rem;"></a>
+										<div class="card-body">
+											<p class="card-text">${item.name }<br>${item.formatPrice }</p>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+						<h5 style="padding-top: 1rem;">レディース</h5>
+						<div class="row">
+							<c:forEach var="item" items="${rankGender1}">
+								<div class="col-3">
+									<div class="card" style="width: 10rem; border: none;">
+										<a href="Item?itemId=${item.id }"><img
+											class="card-img-top" src="img/${item.fileName }"
+											style="height: 10rem;"></a>
+										<div class="card-body">
+											<p class="card-text">${item.name }<br>${item.formatPrice }</p>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<h5>ランキング</h5>
+						<hr class="my-4">
+						<div class="row">
+							<c:forEach var="item" items="${rankGender}">
+								<div class="col-3">
+									<div class="card" style="width: 10rem; border: none;">
+										<a href="Item?itemId=${item.id }"><img
+											class="card-img-top" src="img/${item.fileName }"
+											style="height: 10rem;"></a>
+										<div class="card-body">
+											<p class="card-text">${item.name }<br>${item.formatPrice }</p>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				<h5 style="padding-top: 1rem;">おすすめアイテム</h5>
+				<hr class="my-4">
+				<div class="row">
+					<c:forEach var="item" items="${itemList }">
+						<div class="col-3">
+							<div class="card" style="width: 10rem; border: none;">
+								<a href="Item?itemId=${item.id }"><img class="card-img-top"
+									src="img/${item.fileName }" style="height: 10rem;"></a>
+								<div class="card-body">
+									<p class="card-text">${item.name }<br>${item.formatPrice }</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
-				<!-- 商品カード -->
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>

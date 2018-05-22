@@ -51,130 +51,98 @@ create table category(
   , gender int (11) not null
 ) ;
 
+insert into ecproject.buy(id,buy_id,item_id) values (1,1,1);
+insert into ecproject.buy(id,buy_id,item_id) values (2,2,6);
+insert into ecproject.buy(id,buy_id,item_id) values (3,2,9);
+insert into ecproject.buy(id,buy_id,item_id) values (4,3,2);
+insert into ecproject.buy(id,buy_id,item_id) values (5,3,9);
+insert into ecproject.buy(id,buy_id,item_id) values (6,3,6);
+insert into ecproject.buy(id,buy_id,item_id) values (7,4,1);
+insert into ecproject.buy(id,buy_id,item_id) values (8,4,2);
+insert into ecproject.buy(id,buy_id,item_id) values (9,5,2);
+insert into ecproject.buy(id,buy_id,item_id) values (10,5,6);
+insert into ecproject.buy(id,buy_id,item_id) values (11,6,9);
+insert into ecproject.buy(id,buy_id,item_id) values (12,7,9);
+insert into ecproject.buy(id,buy_id,item_id) values (13,8,2);
+insert into ecproject.buy(id,buy_id,item_id) values (14,9,1);
+insert into ecproject.buy(id,buy_id,item_id) values (15,10,6);
+insert into ecproject.buy(id,buy_id,item_id) values (16,11,2);
+insert into ecproject.buy(id,buy_id,item_id) values (17,12,9);
+insert into ecproject.buy(id,buy_id,item_id) values (18,13,6);
+insert into ecproject.buy(id,buy_id,item_id) values (19,14,9);
+insert into ecproject.buy(id,buy_id,item_id) values (20,15,2);
+insert into ecproject.buy(id,buy_id,item_id) values (21,16,2);
+insert into ecproject.buy(id,buy_id,item_id) values (22,17,2);
+insert into ecproject.buy(id,buy_id,item_id) values (23,18,11);
+insert into ecproject.buy(id,buy_id,item_id) values (24,19,2);
+insert into ecproject.buy(id,buy_id,item_id) values (25,20,1);
+insert into ecproject.buy(id,buy_id,item_id) values (26,21,9);
+insert into ecproject.buy(id,buy_id,item_id) values (27,21,1);
+insert into ecproject.buy(id,buy_id,item_id) values (28,21,9);
+insert into ecproject.buy(id,buy_id,item_id) values (29,22,1);
+insert into ecproject.buy(id,buy_id,item_id) values (30,23,11);
+insert into ecproject.buy(id,buy_id,item_id) values (31,24,11);
+insert into ecproject.buy(id,buy_id,item_id) values (32,25,9);
+insert into ecproject.buy(id,buy_id,item_id) values (33,26,6);
+insert into ecproject.buy(id,buy_id,item_id) values (34,26,11);
+insert into ecproject.buy(id,buy_id,item_id) values (35,27,9);
+insert into ecproject.buy(id,buy_id,item_id) values (36,27,1);
+insert into ecproject.buy(id,buy_id,item_id) values (37,27,6);
+insert into ecproject.buy(id,buy_id,item_id) values (38,27,6);
+insert into ecproject.buy(id,buy_id,item_id) values (39,28,1);
+insert into ecproject.buy(id,buy_id,item_id) values (40,28,1);
+insert into ecproject.buy(id,buy_id,item_id) values (41,29,11);
+insert into ecproject.buy(id,buy_id,item_id) values (42,30,11);
+insert into ecproject.buy(id,buy_id,item_id) values (43,31,82);
+insert into ecproject.buy(id,buy_id,item_id) values (44,31,59);
+insert into ecproject.buy(id,buy_id,item_id) values (45,31,64);
+insert into ecproject.buy(id,buy_id,item_id) values (46,32,34);
+insert into ecproject.buy(id,buy_id,item_id) values (47,32,67);
+insert into ecproject.buy(id,buy_id,item_id) values (48,33,59);
+insert into ecproject.buy(id,buy_id,item_id) values (49,33,67);
+insert into ecproject.buy(id,buy_id,item_id) values (50,34,26);
+insert into ecproject.buy(id,buy_id,item_id) values (51,34,89);
+insert into ecproject.buy(id,buy_id,item_id) values (52,34,94);
+insert into ecproject.buy(id,buy_id,item_id) values (53,35,44);
+insert into ecproject.buy(id,buy_id,item_id) values (54,35,40);
+insert into ecproject.buy(id,buy_id,item_id) values (55,36,94);
+insert into ecproject.buy(id,buy_id,item_id) values (56,36,94);
+insert into ecproject.buy(id,buy_id,item_id) values (57,36,87);
+insert into ecproject.buy(id,buy_id,item_id) values (58,37,63);
+insert into ecproject.buy(id,buy_id,item_id) values (59,37,87);
+insert into ecproject.buy(id,buy_id,item_id) values (60,37,31);
 
-insert 
-into category(category_name, gender) 
-values ('トップス', 0);
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (25,1,3,2500,'2018/05/10 18:07:56');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (26,1,2,46300,'2018/05/10 18:08:40');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (27,1,2,48500,'2018/05/11 10:46:39');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (28,1,1,4000,'2018/05/11 11:43:51');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (29,1,1,24000,'2018/05/11 11:43:55');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (30,1,1,24000,'2018/05/11 11:43:59');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (31,1,3,21200,'2018/05/14 17:35:57');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (32,1,2,26300,'2018/05/15 10:11:16');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (33,1,3,9600,'2018/05/15 11:26:21');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (34,1,1,28000,'2018/05/15 18:20:05');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (35,1,1,8200,'2018/05/15 18:23:23');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (36,1,3,25500,'2018/05/21 13:54:48');
+insert into ecproject.buy_detail(id,user_id,delivery_method_id,total_price,create_date) values (37,1,2,31500,'2018/05/21 14:52:42');
 
+insert into ecproject.category(id,category_name,gender) values (1,'トップス',0);
+insert into ecproject.category(id,category_name,gender) values (2,'アウター',0);
+insert into ecproject.category(id,category_name,gender) values (3,'パンツ',0);
+insert into ecproject.category(id,category_name,gender) values (4,'スーツ',0);
+insert into ecproject.category(id,category_name,gender) values (5,'シューズ',0);
+insert into ecproject.category(id,category_name,gender) values (8,'トップス',1);
+insert into ecproject.category(id,category_name,gender) values (9,'アウター',1);
+insert into ecproject.category(id,category_name,gender) values (10,'パンツ',1);
+insert into ecproject.category(id,category_name,gender) values (11,'スカート',1);
+insert into ecproject.category(id,category_name,gender) values (12,'ワンピース',1);
+insert into ecproject.category(id,category_name,gender) values (13,'シューズ',1);
+insert into ecproject.category(id,category_name,gender) values (14,'その他',1);
+insert into ecproject.category(id,category_name,gender) values (15,'その他',0);
 
-insert 
-into category(category_name, gender) 
-values ('アウター', 0);
-
-
-insert 
-into category(category_name, gender) 
-values ('アウター', 0);
-
-
-insert 
-into category(category_name, gender) 
-values ('パンツ', 0);
-
-
-insert 
-into category(category_name, gender) 
-values ('スーツ', 0);
-
-
-insert 
-into category(category_name, gender) 
-values ('シューズ', 0);
-
-
-insert 
-into category(category_name, gender) 
-values ('その他', 0);
-
-
-insert 
-into category(category_name, gender) 
-values ('トップス', 1);
-
-
-insert 
-into category(category_name, gender) 
-values ('アウター', 1);
-
-
-insert 
-into category(category_name, gender) 
-values ('パンツ', 1);
-
-insert 
-into category(category_name, gender) 
-values ('スカート', 1);
-
-insert 
-into category(category_name, gender) 
-values ('ワンピース', 1);
-
-insert 
-into category(category_name, gender) 
-values ('シューズ', 1);
-
-insert 
-into category(category_name, gender) 
-values ('その他', 1);
-
-insert 
-into item( 
-  name
-  , gender
-  , category
-  , item_detail
-  , price
-  , image
-) 
-values ( 
-  '半袖 Tシャツ'
-  , 0
-  , 1
-  , '【タイプ】
-メンズ
-【サイズ】
-S・M・L
-【カラー】
-白・黒・ホワイト・ブラック・グレー・ブラウン・ダークグリーン・ネイビー・ロイヤルブルー・パープル'
-  , 2200
-  , '121353.jpg'
-) ;
-
-insert 
-into user ( 
-  login_id
-  , name
-  , birth_date
-  , address
-  , password
-  , create_date
-  , update_date
-) 
-values ( 
-  'admin'
-  , '管理者'
-  , '1995-05-31'
-  , '神奈川県'
-  , '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'
-  , '2018-04-24 00:00:00'
-  , '2018-04-24 00:00:00'
-) ;
-
-
-insert 
-into delivery_method(name, price) 
-values ('通常配送', 0);
-
-
-insert 
-into delivery_method(name, price) 
-values ('即日配送', 300);
-
-
-insert 
-into delivery_method(name, price) 
-values ('日時指定', 300);
-
+insert into ecproject.delivery_method(id,name,price) values (1,'通常配送',0);
+insert into ecproject.delivery_method(id,name,price) values (2,'即日配送',300);
+insert into ecproject.delivery_method(id,name,price) values (3,'日時指定',300);
 
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (1,'Tシャツ1',0,1,'【タイプ】
 メンズ
@@ -322,28 +290,7 @@ insert into ecproject.item(id,name,gender,category,item_detail,price,image) valu
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (95,'リュック4',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',6000,'キャプチャ14.PNG');
 insert into ecproject.item(id,name,gender,category,item_detail,price,image) values (96,'リュック5',1,14,'手触りの良いきめ細やかな生地と上質な合成皮革を組み合わせた、大人の女性のためのリュック。',5900,'キャプチャ14.PNG');
 
-SELECT
-  item.id
-  , item.category
-  , item.name
-  , item.gender
-  , category.category_name
-  , item.price 
-FROM
-  item 
-  inner join category 
-    on item.category = category.id 
-WHERE
-  item.gender = 0 
-  and item.category = 1 
-ORDER BY
-  id DESC 
-LIMIT
-  0 , 5; 
-
-select * from category WHERE category_name='その他'
-SELECT * FROM category GROUP BY category_name ORDER BY id ASC
-
-
-
+insert into ecproject.`user`(id,login_id,name,birth_date,address,password,create_date,update_date) values (1,'admin','管理者','1995/05/31','神奈川県','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','2018/04/24','2018/04/24');
+insert into ecproject.`user`(id,login_id,name,birth_date,address,password,create_date,update_date) values (3,'user1','ユーザーです','1992/02/03','神奈川県','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','2018/04/24','2018/05/07 16:33:11');
+insert into ecproject.`user`(id,login_id,name,birth_date,address,password,create_date,update_date) values (4,'user2','土屋','2018/04/06','神奈川','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','2018/04/26 16:46:30','2018/04/26 16:46:30');
 

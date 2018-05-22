@@ -43,9 +43,13 @@ public class Top extends HttpServlet {
 			session.removeAttribute("sortId");
 
 			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(2);
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(12, 2);
+			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getRandItem(8, 2);
+			ArrayList<MyItemDataBeans> rankGender0 = MyItemDAO.getRankingByGender(0,4);
+			ArrayList<MyItemDataBeans> rankGender1 = MyItemDAO.getRankingByGender(1,4);
 			request.setAttribute("cateList", cateList);
 			request.setAttribute("itemList", itemList);
+			request.setAttribute("rankGender0", rankGender0);
+			request.setAttribute("rankGender1", rankGender1);
 			request.getRequestDispatcher(EcHelper.TOP_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

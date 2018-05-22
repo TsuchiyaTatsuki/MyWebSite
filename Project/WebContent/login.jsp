@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>ログイン</title>
 <jsp:include page="/baselayout/head.html" />
-
 </head>
 <body>
 	<jsp:include page="/baselayout/header.jsp" />

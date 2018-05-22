@@ -39,17 +39,29 @@ public class GenderSorting extends HttpServlet {
 			int gender;
 			if(request.getParameter("gender") == null) {
 				gender = 2;
+				ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
+				ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(8, gender);
+				ArrayList<MyItemDataBeans>rankGender0 = MyItemDAO.getRankingByGender(0, 4);
+				ArrayList<MyItemDataBeans>rankGender1 = MyItemDAO.getRankingByGender(1, 4);
+
+				session.setAttribute("genderId", gender);
+				request.setAttribute("cateList", cateList);
+				request.setAttribute("itemList", itemList);
+				request.setAttribute("rankGender0", rankGender0);
+				request.setAttribute("rankGender1", rankGender1);
+				request.getRequestDispatcher(EcHelper.TOP_PAGE).forward(request, response);
 			} else {
 				gender = Integer.parseInt(request.getParameter("gender"));
+				ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
+				ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(8, gender);
+				ArrayList<MyItemDataBeans>rankGender = MyItemDAO.getRankingByGender(gender, 8);
+
+				session.setAttribute("genderId", gender);
+				request.setAttribute("cateList", cateList);
+				request.setAttribute("itemList", itemList);
+				request.setAttribute("rankGender", rankGender);
+				request.getRequestDispatcher(EcHelper.TOP_PAGE).forward(request, response);
 			}
-			ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
-
-			session.setAttribute("genderId", gender);
-			request.setAttribute("cateList", cateList);
-
-			ArrayList<MyItemDataBeans>itemList = MyItemDAO.getRandItem(12, gender);
-			request.setAttribute("itemList", itemList);
-			request.getRequestDispatcher(EcHelper.TOP_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

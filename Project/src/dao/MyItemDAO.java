@@ -96,6 +96,37 @@ public class MyItemDAO {
 			}
 		}
 	}
+	//性別ごとにランキング
+	public static ArrayList<MyItemDataBeans> getRankingByGender(int genderId, int limit) throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = MyDBManager.getConnection();
+
+			st = con.prepareStatement("SELECT item.id,item.name,item.price,item.image,count(*) as count FROM item inner join buy on item.id = buy.item_id WHERE item.gender=? group by buy.item_id ORDER BY count DESC LIMIT ? ");
+			st.setInt(1, genderId);
+			st.setInt(2, limit);
+			ResultSet rs = st.executeQuery();
+			ArrayList<MyItemDataBeans> itemList = new ArrayList<MyItemDataBeans>();
+			while (rs.next()) {
+				MyItemDataBeans item = new MyItemDataBeans();
+				item.setId(rs.getInt("id"));
+				item.setName(rs.getString("name"));
+				item.setPrice(rs.getInt("price"));
+				item.setFileName(rs.getString("image") != null ? rs.getString("image") : "fuku_tatamu.png");
+				itemList.add(item);
+			}
+			System.out.println("getAllItem completed");
+			return itemList;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
 
 	/**
 	 * 商品IDによる商品検索
