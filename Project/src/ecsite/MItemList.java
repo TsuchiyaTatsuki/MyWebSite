@@ -73,13 +73,13 @@ public class MItemList extends HttpServlet {
 				} else {
 					MgenderId = Integer.parseInt(request.getParameter("MgenderId"));
 				}
-
 				ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(MgenderId);
 				itemCount = MyItemDAO.getItemCount(MsearchWord, McategoryName, MgenderId);
 				pageMax = (int) Math.ceil(itemCount / PAGE_MAX_ITEM_COUNT);
 				page = Integer.parseInt(request.getParameter("page") == null ? "1" : request.getParameter("page"));
 				ArrayList<MyItemDataBeans> itemList = MyItemDAO.getInstance().MgetItems(MsearchWord,
 						MgenderId, MsortId, McategoryName, page, PAGE_MAX_ITEM_COUNT);
+				String updateMesse = (String) EcHelper.cutSessionAttribute(session, "updateMesse");
 
 				session.setAttribute("MsortId", MsortId);
 				session.setAttribute("MsearchWord", MsearchWord);
@@ -90,6 +90,7 @@ public class MItemList extends HttpServlet {
 				request.setAttribute("itemCount", (int) itemCount);
 				request.setAttribute("page", page);
 				request.setAttribute("pageMax", pageMax);
+				request.setAttribute("updateMesse", updateMesse);
 				request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
 			}
 		} catch (Exception e) {

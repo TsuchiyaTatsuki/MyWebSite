@@ -27,12 +27,14 @@
 					<div class="col-sm-4">
 						<c:choose>
 							<c:when test="${fileName != null }">
-								<img src="img/${fileName }" class="img-thumbnail"
-									style="width: 15rem; height: 15rem;">
+								<div style="overflow: hidden; width: 15rem; height: 15rem;">
+									<img src="img/${fileName }" class="img-fluid">
+								</div>
 							</c:when>
 							<c:otherwise>
-								<img src="img/${idb.fileName }" class="img-thumbnail"
-									style="width: 15rem; height: 15rem;">
+								<div style="overflow: hidden; width: 15rem; height: 15rem;">
+									<img src="img/${idb.fileName }" class="img-fluid">
+								</div>
 							</c:otherwise>
 						</c:choose>
 					</div>

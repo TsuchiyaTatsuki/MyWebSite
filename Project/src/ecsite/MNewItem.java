@@ -20,7 +20,6 @@ import dao.MyItemDAO;
 @WebServlet("/MNewItem")
 public class MNewItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -70,50 +69,51 @@ public class MNewItem extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
-
-			String name = request.getParameter("name");
-			String detail = request.getParameter("detail");
-			int price = Integer.parseInt(request.getParameter("price"));
-
-			MyItemDataBeans newItem = new MyItemDataBeans();
-			newItem.setName(name);
-			newItem.setDetail(detail);
-			newItem.setPrice(price);
-
-			if (request.getParameter("fileName").equals("0")) {
-				String fileName = null;
-				newItem.setFileName(fileName);
+			MyUserDataBeans lud = (MyUserDataBeans) session.getAttribute("lud");
+			if (lud == null || lud.getId() != 1) {
+				response.sendRedirect("Top");
 			} else {
-				String fileName = request.getParameter("fileName");
-				newItem.setFileName(fileName);
+
+				String name = request.getParameter("name");
+				String detail = request.getParameter("detail");
+				int price = Integer.parseInt(request.getParameter("price"));
+
+				MyItemDataBeans newItem = new MyItemDataBeans();
+				newItem.setName(name);
+				newItem.setDetail(detail);
+				newItem.setPrice(price);
+
+				if (request.getParameter("fileName").equals("0")) {
+					String fileName = null;
+					newItem.setFileName(fileName);
+				} else {
+					String fileName = request.getParameter("fileName");
+					newItem.setFileName(fileName);
+				}
+
+				if (Integer.parseInt(request.getParameter("menCate")) != 0) {
+					int category = Integer.parseInt(request.getParameter("menCate"));
+					newItem.setGender(0);
+					newItem.setCategoryId(category);
+
+				} else if (Integer.parseInt(request.getParameter("womenCate")) != 0) {
+					int category = Integer.parseInt(request.getParameter("womenCate"));
+					newItem.setGender(1);
+					newItem.setCategoryId(category);
+
+				} else {
+					String error = "カテゴリーを選択してください";
+					request.setAttribute("newItem", newItem);
+					request.setAttribute("error", error);
+					request.getRequestDispatcher(EcHelper.M_NEW_ITEM).forward(request, response);
+				}
+
+				MyItemDAO.getInstance().addNewItem(newItem);
+				String updateMesse = "アイテムの追加が完了しました";
+
+				session.setAttribute("updateMesse", updateMesse);
+				response.sendRedirect("MItemList");
 			}
-
-			if (Integer.parseInt(request.getParameter("menCate")) != 0) {
-				int category = Integer.parseInt(request.getParameter("menCate"));
-				newItem.setGender(0);
-				newItem.setCategoryId(category);
-
-			} else if (Integer.parseInt(request.getParameter("womenCate")) != 0) {
-				int category = Integer.parseInt(request.getParameter("womenCate"));
-				newItem.setGender(1);
-				newItem.setCategoryId(category);
-
-			} else {
-				String error = "カテゴリーを選択してください";
-				request.setAttribute("newItem", newItem);
-				request.setAttribute("error", error);
-				request.getRequestDispatcher(EcHelper.M_NEW_ITEM).forward(request, response);
-			}
-
-			MyItemDAO.getInstance().addNewItem(newItem);
-
-			String updateMesse = "アイテムの追加が完了しました";
-
-			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getAllItem();
-			request.setAttribute("itemList", itemList);
-			request.setAttribute("updateMesse", updateMesse);
-			request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

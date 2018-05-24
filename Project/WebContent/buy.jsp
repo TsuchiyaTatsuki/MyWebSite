@@ -67,29 +67,37 @@
 				<div class="card" style="border-radius: 10px;">
 					<div class="card-body">
 						<!-- アイテム -->
-						<c:forEach var="itemdb" items="${cart }">
-							<div class="row">
-								<div class="col col-3 align-self-center">
-									<img src="img/${itemdb.fileName }" class="img-fluid"
-										alt="Responsive image" style="width: 8rem; height: auto;">
-								</div>
-
-								<div class="col col-5 align-self-center">
-									<h6>${itemdb.name }</h6>
-								</div>
-								<div class="col col-2 align-self-center" align="right">
-									<h6>${itemdb.formatPrice }</h6>
-								</div>
-								<div class="col col-2 align-self-center" align="right">
-									<a href="Cart">
-										<button type="button" class="btn btn-outline-secondary btn-sm">
-											<i class="fas fa-redo-alt"></i> 変更
-										</button>
-									</a>
-								</div>
+						<div class="row">
+							<div class="col col-10">
+								<c:forEach var="itemdb" items="${cart }" varStatus="status">
+									<div class="row">
+										<div class="col col-4 align-self-center">
+											<div style="overflow: hidden; width: 8rem; height: 8rem;">
+												<img src="img/${itemdb.fileName }" class="img-fluid"
+													alt="Responsive image">
+											</div>
+										</div>
+										<div class="col col-5 align-self-center">
+											<h6>${itemdb.name }</h6>
+										</div>
+										<div class="col col-3 align-self-center" align="right">
+											<h6>${itemdb.formatPrice }</h6>
+										</div>
+									</div>
+									<c:if test="${!status.last }">
+										<hr class="my-4">
+									</c:if>
+								</c:forEach>
 							</div>
-							<hr class="my-4">
-						</c:forEach>
+							<div class="col col-2 align-self-center" align="right">
+								<a href="Cart">
+									<button type="button" class="btn btn-outline-secondary btn-sm">
+										<i class="fas fa-redo-alt"></i> 変更
+									</button>
+								</a>
+							</div>
+						</div>
+						<hr class="my-4">
 						<!-- アイテム -->
 						<div class="row">
 							<div class="col col-6 align-self-center">
@@ -146,8 +154,7 @@
 				<div class="row justify-content-md-center"
 					style="padding-bottom: 20px; padding-top: 20px;">
 					<div class="col col-lg-10">
-						<a
-							href="BuyResult"
+						<a href="BuyResult"
 							class="btn btn-primary btn-block btn-lg shadow-sm" role="button">
 							注文を確定</a>
 					</div>

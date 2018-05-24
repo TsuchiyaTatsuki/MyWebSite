@@ -1,7 +1,6 @@
 package ecsite;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,9 +43,7 @@ public class MItemDelete extends HttpServlet {
 			} else {
 			int itemId = Integer.parseInt(request.getParameter("itemId"));
 			MyItemDataBeans idb = MyItemDAO.getItemByItemID(itemId);
-
 			session.setAttribute("idb", idb);
-
 			request.getRequestDispatcher(EcHelper.M_ITEM_DELETE).forward(request, response);
 			}
 		} catch (Exception e) {
@@ -79,10 +76,8 @@ public class MItemDelete extends HttpServlet {
 			case "1":
 				MyItemDAO.getInstance().itemDelete(itemId);
 				String updateMesse = "アイテムID: " + itemId + " の削除が完了しました";
-				ArrayList<MyItemDataBeans> itemList = MyItemDAO.getAllItem();
-				request.setAttribute("itemList", itemList);
-				request.setAttribute("updateMesse", updateMesse);
-				request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
+				session.setAttribute("updateMesse", updateMesse);
+				response.sendRedirect("MItemList");
 				break;
 
 			}

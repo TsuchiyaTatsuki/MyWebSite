@@ -32,8 +32,10 @@
 				<c:forEach var="idb" items="${buyItemList }">
 					<div class="row">
 						<div class="col col-2 align-self-center">
-							<img src="img/${idb.fileName }" class="img-fluid"
-								alt="Responsive image">
+							<div style="overflow: hidden; width: 9rem; height: 9rem;">
+								<img src="img/${idb.fileName }" class="img-fluid"
+									alt="Responsive image">
+							</div>
 						</div>
 						<div class="col col-1"></div>
 						<div class="col col-5 align-self-center">

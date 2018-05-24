@@ -46,10 +46,8 @@ public class MItemUpdate extends HttpServlet {
 				int gender = Integer.parseInt(request.getParameter("gender"));
 				MyItemDataBeans idb = MyItemDAO.getItemByItemID(itemId);
 				ArrayList<MyItemDataBeans> cateList = MyItemDAO.getCategoryByGender(gender);
-
 				session.setAttribute("idb", idb);
 				session.setAttribute("cateList", cateList);
-
 				request.getRequestDispatcher(EcHelper.M_ITEM_UPDATE).forward(request, response);
 			}
 		} catch (Exception e) {
@@ -57,9 +55,7 @@ public class MItemUpdate extends HttpServlet {
 			session.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
-
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -91,10 +87,8 @@ public class MItemUpdate extends HttpServlet {
 			MyItemDAO.getInstance().itemUpdate(updateidb);
 			String updateMesse = "アイテムID: " + idb.getId() + " の更新が完了しました";
 
-			ArrayList<MyItemDataBeans> itemList = MyItemDAO.getAllItem();
-			request.setAttribute("itemList", itemList);
-			request.setAttribute("updateMesse", updateMesse);
-			request.getRequestDispatcher(EcHelper.M_ITEM_LIST).forward(request, response);
+			session.setAttribute("updateMesse", updateMesse);
+			response.sendRedirect("MItemList");
 
 		} catch (Exception e) {
 			e.printStackTrace();

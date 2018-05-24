@@ -12,8 +12,7 @@
 	<jsp:include page="/baselayout/header.jsp" />
 	<nav aria-label="breadcrumb" style="padding-top: 10px;">
 		<ol class="breadcrumb bg-white">
-			<li class="breadcrumb-item"><a
-				href="Top">Home</a></li>
+			<li class="breadcrumb-item"><a href="Top">Home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">カート</li>
 		</ol>
 	</nav>
@@ -38,10 +37,12 @@
 					<c:forEach var="itemdb" items="${cart}" varStatus="status">
 						<div class="row">
 							<div class="col col-3 align-self-center">
-								<a href="Item?itemId=${itemdb.id }"> <img
-									src="img/${itemdb.fileName }" class="img-fluid"
-									alt="Responsive image">
-								</a>
+								<div style="overflow: hidden; width: 9rem; height: 9rem;">
+									<a href="Item?itemId=${itemdb.id }"> <img
+										src="img/${itemdb.fileName }" class="img-fluid"
+										alt="Responsive image">
+									</a>
+								</div>
 							</div>
 							<div class="col col-1"></div>
 							<div class="col col-4 align-self-center">
@@ -92,9 +93,10 @@
 			<c:forEach var="item" items="${readItemList }">
 				<div class="col-2">
 					<div class="card" style="width: 9rem; border: none;">
-						<a href="Item?itemId=${item.id }"><img class="card-img-top"
-							src="img/${item.fileName }" alt="Card image cap"
-							style="height: 9rem;"></a>
+						<div style="overflow: hidden; height: 9rem;">
+							<a href="Item?itemId=${item.id }"><img class="card-img-top"
+								src="img/${item.fileName }" alt="Card image cap"></a>
+						</div>
 						<div class="card-body">
 							<p class="card-text">${item.name }<br>${item.formatPrice }</p>
 						</div>

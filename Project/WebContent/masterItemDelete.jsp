@@ -17,8 +17,9 @@
 		<div class="jumbotron" style="padding: 5% 8%;">
 			<div class="row">
 				<div class="col-sm-4">
-					<img src="img/${idb.fileName }" class="img-thumbnail"
-						style="width: 10rem; height: 10rem;">
+					<div style="overflow: hidden; width: 10rem; height: 10rem;">
+						<img src="img/${idb.fileName }" class="img-fluid">
+					</div>
 				</div>
 				<div class="col-sm-8">
 					<h5>商品ID: ${idb.id }</h5>
@@ -37,7 +38,7 @@
 			<hr>
 			<form action="MItemDelete" method="POST">
 				<div class="row justify-content-around">
-				<input type="hidden" name="itemId" value="${idb.id }">
+					<input type="hidden" name="itemId" value="${idb.id }">
 					<div class="col col-lg-4">
 						<button type="submit" class="btn btn-secondary btn-block"
 							name="deleteButton" value="0">戻る</button>

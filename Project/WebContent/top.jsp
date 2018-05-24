@@ -14,19 +14,17 @@
 	<div class="row">
 		<!-- サイドメニュー -->
 		<div class="col-sm-3">
-			<div id="sidebar">
-				<div class="sidebar__inner">
-					<div class="list-group list-group-flush" style="padding-top: 2rem;">
-						<li class="list-group-item">
-							<h5>
-								<strong>カテゴリ</strong>
-							</h5>
-						</li>
-						<c:forEach var="gcate" items="${cateList }">
-							<a href="ItemSearchResult?categoryName=${gcate.name }"
-								class="list-group-item list-group-item-action">${gcate.name }</a>
-						</c:forEach>
-					</div>
+			<div style="padding-top: 2rem;">
+				<div class="list-group list-group-flush">
+					<li class="list-group-item">
+						<h5>
+							<strong>カテゴリ</strong>
+						</h5>
+					</li>
+					<c:forEach var="gcate" items="${cateList }">
+						<a href="ItemSearchResult?categoryName=${gcate.name }"
+							class="list-group-item list-group-item-action">${gcate.name }</a>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -141,9 +139,11 @@
 							<c:forEach var="item" items="${rankGender0}">
 								<div class="col-3">
 									<div class="card" style="width: 10rem; border: none;">
-										<a href="Item?itemId=${item.id }"><img
-											class="card-img-top" src="img/${item.fileName }"
-											style="height: 10rem;"></a>
+										<div style="overflow: hidden; height: 10rem;">
+											<a href="Item?itemId=${item.id }"> <img
+												class="card-img-top" src="img/${item.fileName }">
+											</a>
+										</div>
 										<div class="card-body">
 											<p class="card-text">${item.name }<br>${item.formatPrice }</p>
 										</div>
@@ -156,9 +156,11 @@
 							<c:forEach var="item" items="${rankGender1}">
 								<div class="col-3">
 									<div class="card" style="width: 10rem; border: none;">
-										<a href="Item?itemId=${item.id }"><img
-											class="card-img-top" src="img/${item.fileName }"
-											style="height: 10rem;"></a>
+										<div style="overflow: hidden; height: 10rem;">
+											<a href="Item?itemId=${item.id }"> <img
+												class="card-img-top" src="img/${item.fileName }">
+											</a>
+										</div>
 										<div class="card-body">
 											<p class="card-text">${item.name }<br>${item.formatPrice }</p>
 										</div>
@@ -174,9 +176,11 @@
 							<c:forEach var="item" items="${rankGender}">
 								<div class="col-3">
 									<div class="card" style="width: 10rem; border: none;">
-										<a href="Item?itemId=${item.id }"><img
-											class="card-img-top" src="img/${item.fileName }"
-											style="height: 10rem;"></a>
+										<div style="overflow: hidden; height: 10rem;">
+											<a href="Item?itemId=${item.id }"> <img
+												class="card-img-top" src="img/${item.fileName }">
+											</a>
+										</div>
 										<div class="card-body">
 											<p class="card-text">${item.name }<br>${item.formatPrice }</p>
 										</div>
@@ -192,8 +196,11 @@
 					<c:forEach var="item" items="${itemList }">
 						<div class="col-3">
 							<div class="card" style="width: 10rem; border: none;">
-								<a href="Item?itemId=${item.id }"><img class="card-img-top"
-									src="img/${item.fileName }" style="height: 10rem;"></a>
+								<div style="overflow: hidden; height: 10rem;">
+									<a href="Item?itemId=${item.id }"> <img
+										class="card-img-top" src="img/${item.fileName }">
+									</a>
+								</div>
 								<div class="card-body">
 									<p class="card-text">${item.name }<br>${item.formatPrice }</p>
 								</div>

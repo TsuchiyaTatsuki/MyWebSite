@@ -36,7 +36,6 @@
 								<span aria-hidden="true">&times;</span>
 							</button></li>
 					</c:if>
-
 					<li class="list-group-item list-group-item-secondary"
 						style="padding-top: 40px;"><h5>
 							<strong>性別</strong>
@@ -155,9 +154,10 @@
 				<c:forEach var="item" items="${itemList }">
 					<div class="col-3">
 						<div class="card" style="width: 10rem; border: none;">
-							<a href="Item?itemId=${item.id }"><img class="card-img-top"
-								src="img/${item.fileName }" alt="Card image cap"
-								style="height: 10rem;"></a>
+							<div style="overflow: hidden; height: 10rem;">
+								<a href="Item?itemId=${item.id }"><img class="card-img-top"
+									src="img/${item.fileName }" alt="Card image cap"></a>
+							</div>
 							<div class="card-body">
 								<p class="card-text">${item.name }<br>${item.formatPrice }</p>
 							</div>
