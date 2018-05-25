@@ -96,5 +96,4 @@ public class MItemUpdate extends HttpServlet {
 			response.sendRedirect("Error");
 		}
 	}
-
 }
