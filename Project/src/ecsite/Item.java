@@ -37,18 +37,18 @@ public class Item extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
+			int itemId = Integer.parseInt(request.getParameter("itemId"));
+			MyItemDataBeans itemdb = MyItemDAO.getItemByItemID(itemId);
+			ArrayList<MyItemDataBeans> relationItemList = MyItemDAO.getRandItemByCategory(6, itemdb.getCategoryId());
 			ArrayList<MyItemDataBeans> readItemList;
 			if (session.getAttribute("readItemList") == null) {
 				readItemList = new ArrayList<MyItemDataBeans>();
 			} else {
 				readItemList = (ArrayList<MyItemDataBeans>) session.getAttribute("readItemList");
 			}
-			int itemId = Integer.parseInt(request.getParameter("itemId"));
-			MyItemDataBeans itemdb = MyItemDAO.getItemByItemID(itemId);
-			ArrayList<MyItemDataBeans>relationItemList = MyItemDAO.getRandItemByCategory(6, itemdb.getCategoryId());
-			readItemList.add(itemdb);
+			readItemList.add(0, itemdb);
 			while (readItemList.size() >= 13) {
-				readItemList.remove(0);
+				readItemList.remove(12);
 			}
 			session.setAttribute("readItemList", readItemList);
 			session.setAttribute("itemdb", itemdb);

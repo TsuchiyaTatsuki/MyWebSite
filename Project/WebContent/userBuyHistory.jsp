@@ -56,8 +56,9 @@
 											items="${buyItemList.get(buyList.indexOf(buyDataBeans))}">
 											<div class="row" style="padding-bottom: 10px;">
 												<div class="col-sm-4">
-													<img src="img/${idb.fileName }" alt="..."
-														class="img-thumbnail">
+													<div style="overflow: hidden; height: 8rem; width: 8rem;">
+														<img src="img/${idb.fileName }" class="img-fluid">
+													</div>
 												</div>
 												<div class="col-sm-8">
 													<h5>${idb.name }</h5>
